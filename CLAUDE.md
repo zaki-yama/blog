@@ -71,6 +71,17 @@ description: 'Article description'
 - [Notes for next session]
 ```
 
+## Communication Guidelines
+
+- All conversations with the user should be conducted in Japanese
+- All repository documentation, code comments, and commit messages should be written in English
+- This ensures accessibility for both Japanese and international developers
+
+## Reference Documents
+
+- **Requirements**: See `requirements.md` for detailed project requirements and specifications
+- **Tasks**: See `todo.md` for current task list and project roadmap
+
 ## Configuration
 
 - Claude Code permissions are configured in `.claude/settings.local.json`

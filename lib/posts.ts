@@ -2,7 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
-import html from 'remark-html';
+import remarkRehype from 'remark-rehype';
+import rehypeShiki from '@shikijs/rehype';
+import rehypeStringify from 'rehype-stringify';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
@@ -62,7 +64,15 @@ export async function getPostData(id: string): Promise<PostData> {
   const matterResult = matter(fileContents);
 
   const processedContent = await remark()
-    .use(html)
+    .use(remarkRehype)
+    .use(rehypeShiki, {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      defaultColor: false,
+    })
+    .use(rehypeStringify)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
