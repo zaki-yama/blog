@@ -23,6 +23,7 @@
 ### ドキュメント整備
 - [x] 作業記録システムの設置（docs/YYYY-MM-DD.md形式）
 - [x] TODO管理システムの設置（todo.md）
+- [x] Next.jsプロジェクトをルートに移動し、Mintlifyファイルを清理する
 
 ## 進行中 🚧
 
@@ -110,6 +111,7 @@
 #### コード品質
 - [ ] TypeScript型定義の強化
 - [ ] ESLint/Prettierの設定最適化
+- [ ] ESLint -> Biomeへの移行
 - [ ] 単体テストの実装（Jest + Testing Library）
 
 #### ユーザビリティ
