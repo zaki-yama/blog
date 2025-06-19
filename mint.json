@@ -1,0 +1,26 @@
+{
+  "name": "Tech Blog",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373"
+  },
+  "navigation": [
+    {
+      "group": "最新記事",
+      "pages": [
+        "index",
+        "posts/hello-world",
+        "posts/getting-started-with-react"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/zaki-yama-labs"
+  }
+}
