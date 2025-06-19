@@ -1,16 +1,11 @@
 ---
 title: 'React入門 - 基本概念を理解する'
-description: 'Reactの基本概念であるコンポーネント、props、stateについて詳しく解説します。'
 date: '2024-06-18'
 category: 'プログラミング'
-icon: 'react'
+description: 'Reactの基本概念であるコンポーネント、props、stateについて詳しく解説します。'
 ---
 
 # React入門 - 基本概念を理解する
-
-<div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid #e5e5e5' }}>
-  📅 2024年6月18日 • 🏷️ プログラミング
-</div>
 
 Reactを学び始める際に最初に理解すべき基本概念について説明します。
 
@@ -22,7 +17,7 @@ ReactはFacebook（現Meta）が開発したJavaScriptライブラリで、ユ�
 
 - **コンポーネントベース**: UIを再利用可能なコンポーネントに分割
 - **宣言的**: 「どのように」ではなく「何を」表示するかを記述
-- **Virtual DOM**: 効rate的なDOM更新
+- **Virtual DOM**: 効率的なDOM更新
 
 ## 基本概念
 
@@ -63,9 +58,7 @@ function UserCard({ name, email, avatar }) {
 }
 ```
 
-<Tip>
-propsは読み取り専用です。子コンポーネント内でpropsの値を変更することはできません。
-</Tip>
+> **注意**: propsは読み取り専用です。子コンポーネント内でpropsの値を変更することはできません。
 
 ### 3. State（状態）
 
@@ -146,9 +139,7 @@ function UserProfile({ userId }) {
 
 Reactの基本概念を理解することで、効率的なWebアプリケーションを構築できるようになります。
 
-<Warning>
-この記事は基礎的な内容を扱っています。実際のプロジェクトでは、パフォーマンス最適化やエラーハンドリングなど、より高度なトピックも重要になります。
-</Warning>
+> **注意**: この記事は基礎的な内容を扱っています。実際のプロジェクトでは、パフォーマンス最適化やエラーハンドリングなど、より高度なトピックも重要になります。
 
 次回は、Reactのパフォーマンス最適化について詳しく解説する予定です。
 

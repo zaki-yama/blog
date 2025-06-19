@@ -1,16 +1,11 @@
 ---
 title: 'Hello World - ブログを始めました'
-description: '技術ブログの第一歩として、Hello Worldポストを書いてみました。'
 date: '2024-06-18'
 category: '雑記'
-icon: 'hand-wave'
+description: '技術ブログの第一歩として、Hello Worldポストを書いてみました。'
 ---
 
 # Hello World - ブログを始めました
-
-<div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid #e5e5e5' }}>
-  📅 2024年6月18日 • 🏷️ 雑記
-</div>
 
 こんにちは！技術ブログを始めることにしました。
 
@@ -26,9 +21,7 @@ icon: 'hand-wave'
 
 以下のようなトピックについて書いていく予定です：
 
-<Note>
-これらは予定であり、学習の進度に応じて変更される可能性があります。
-</Note>
+> これらは予定であり、学習の進度に応じて変更される可能性があります。
 
 ### フロントエンド
 - React の基礎と応用
@@ -53,6 +46,4 @@ icon: 'hand-wave'
 
 ---
 
-<Info>
-このブログは [Mintlify](https://mintlify.com) を使って作成されています。
-</Info>
+> このブログは Next.js と Tailwind CSS を使って作成されています。
