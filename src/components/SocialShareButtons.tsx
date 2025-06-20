@@ -6,10 +6,9 @@ interface SocialShareButtonsProps {
   description?: string;
 }
 
-export default function SocialShareButtons({ title, url, description }: SocialShareButtonsProps) {
+export default function SocialShareButtons({ title, url }: SocialShareButtonsProps) {
   const encodedTitle = encodeURIComponent(title);
   const encodedUrl = encodeURIComponent(url);
-  const encodedDescription = encodeURIComponent(description || title);
 
   const shareUrls = {
     twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
