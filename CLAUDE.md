@@ -40,10 +40,11 @@ description: 'Article description'
 
 ## Work Management
 
-### Daily Work Logs
-- Create `docs/YYYY-MM-DD.md` for each work session
+### Daily Work Logs (開発日誌)
+- Create `docs/YYYY-MM-DD-{topic}.md` for each work session
 - Include what was accomplished, challenges faced, emotions, and learnings
 - Write freely as personal notes for future reference
+- **Write in Japanese**
 
 ### TODO Management
 - All tasks are tracked in `todo.md`
@@ -74,7 +75,7 @@ description: 'Article description'
 ## Communication Guidelines
 
 - All conversations with the user should be conducted in Japanese
-- All repository documentation, code comments, and commit messages should be written in English
+- All repository documentation, code comments, and commit messages should be written in English (except Daily Work Logs)
 - This ensures accessibility for both Japanese and international developers
 
 ## Reference Documents
