@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { getSortedPostsData } from '../../lib/posts';
 import { generateWebSiteJsonLd, generateOrganizationJsonLd } from '../../lib/structured-data';
 
-export default function Home() {
-  const allPostsData = getSortedPostsData();
+export default async function Home() {
+  const allPostsData = await getSortedPostsData();
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
   const websiteJsonLd = generateWebSiteJsonLd({

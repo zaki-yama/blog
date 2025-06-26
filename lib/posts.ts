@@ -1,12 +1,14 @@
-import fs from 'fs';
-import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
 import rehypeShiki from '@shikijs/rehype';
 import rehypeStringify from 'rehype-stringify';
 
-const postsDirectory = path.join(process.cwd(), 'posts');
+// Static list of post files for Cloudflare Workers compatibility
+const POST_FILES = [
+  'hello-world.md',
+  'getting-started-with-react.md',
+];
 
 export type PostData = {
   id: string;
@@ -17,14 +19,11 @@ export type PostData = {
   content: string;
 };
 
-export function getSortedPostsData(): Omit<PostData, 'content'>[] {
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames
-    .filter(fileName => fileName.endsWith('.md'))
-    .map((fileName) => {
+export async function getSortedPostsData(): Promise<Omit<PostData, 'content'>[]> {
+  const allPostsData = await Promise.all(
+    POST_FILES.map(async (fileName) => {
       const id = fileName.replace(/\.md$/, '');
-      const fullPath = path.join(postsDirectory, fileName);
-      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const fileContents = await import(`../posts/${fileName}?raw`).then(m => m.default);
       const matterResult = matter(fileContents);
 
       return {
@@ -34,7 +33,8 @@ export function getSortedPostsData(): Omit<PostData, 'content'>[] {
         category: matterResult.data.category,
         description: matterResult.data.description,
       };
-    });
+    })
+  );
 
   return allPostsData.sort((a, b) => {
     if (a.date < b.date) {
@@ -46,21 +46,18 @@ export function getSortedPostsData(): Omit<PostData, 'content'>[] {
 }
 
 export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames
-    .filter(fileName => fileName.endsWith('.md'))
-    .map((fileName) => {
-      return {
-        params: {
-          id: fileName.replace(/\.md$/, ''),
-        },
-      };
-    });
+  return POST_FILES.map((fileName) => {
+    return {
+      params: {
+        id: fileName.replace(/\.md$/, ''),
+      },
+    };
+  });
 }
 
 export async function getPostData(id: string): Promise<PostData> {
-  const fullPath = path.join(postsDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fileName = `${id}.md`;
+  const fileContents = await import(`../posts/${fileName}?raw`).then(m => m.default);
   const matterResult = matter(fileContents);
 
   const processedContent = await remark()

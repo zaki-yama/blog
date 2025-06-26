@@ -63,6 +63,12 @@
   - [x] Twitter Cards対応
   - [x] robots meta tags設定
 
+### デプロイメント
+- [x] Cloudflareデプロイメント環境構築
+  - [x] Cloudflare Workers設定
+  - [x] 必要な設定ファイル作成
+  - [x] デプロイ環境の準備完了
+
 ## 進行中 🚧
 
 現在進行中のタスクはありません。

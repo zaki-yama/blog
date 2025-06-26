@@ -3,7 +3,7 @@ import { getSortedPostsData } from '../../../lib/posts';
 import { generateRSSFeed, getRSSConfig } from '../../../lib/rss';
 
 export async function GET() {
-  const posts = getSortedPostsData();
+  const posts = await getSortedPostsData();
   const config = getRSSConfig();
 
   const rssItems = posts.map((post) => ({

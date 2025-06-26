@@ -3,7 +3,7 @@ import { getSortedPostsData } from '../../../lib/posts';
 import { generateSitemap, formatDateForSitemap, getSitemapConfig } from '../../../lib/sitemap';
 
 export async function GET() {
-  const posts = getSortedPostsData();
+  const posts = await getSortedPostsData();
   const config = getSitemapConfig();
   const currentDate = new Date().toISOString().split('T')[0];
 
