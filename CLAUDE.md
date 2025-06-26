@@ -47,10 +47,13 @@ description: 'Article description'
 - **Write in Japanese**
 
 ### TODO Management
-- All tasks are tracked in `todo.md`
-- Update task status immediately upon completion
-- Add new tasks as they arise
+- All tasks are tracked in `todo.md` - this is the single source of truth
+- **DO NOT use TodoWrite tool** - manage tasks by directly editing `todo.md`
+- Update task status immediately upon completion by editing the file
+- Add new tasks as they arise by editing the file
 - Include detailed subtasks for complex features
+- Always read `todo.md` at the beginning of work sessions to understand current status
+- Use TodoRead tool is not needed - just read the file directly with Read tool
 
 ### Work Log Template
 ```markdown
