@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "nextjs-blog",
+	"name": "blog",
 	"main": ".open-next/worker.js",
 	"compatibility_date": "2025-03-01",
 	"compatibility_flags": [
@@ -14,7 +14,13 @@
 	"observability": {
 		"enabled": true
 	},
+	"routes": [
+		{
+			"pattern": "blog.zaki-yama.dev",
+			"custom_domain": true
+		}
+	],
 	"vars": {
-		"NEXT_PUBLIC_SITE_URL": "https://nextjs-blog.your-domain.workers.dev"
+		"NEXT_PUBLIC_SITE_URL": "https://blog.zaki-yama.dev"
 	}
 }
