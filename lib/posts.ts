@@ -1,7 +1,6 @@
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
-import rehypeShiki from '@shikijs/rehype';
 import rehypeStringify from 'rehype-stringify';
 
 // Static list of post files for Cloudflare Workers compatibility
@@ -62,13 +61,6 @@ export async function getPostData(id: string): Promise<PostData> {
 
   const processedContent = await remark()
     .use(remarkRehype)
-    .use(rehypeShiki, {
-      themes: {
-        light: 'github-light',
-        dark: 'github-dark',
-      },
-      defaultColor: false,
-    })
     .use(rehypeStringify)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
