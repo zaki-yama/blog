@@ -68,6 +68,10 @@
   - [x] Cloudflare Workers設定
   - [x] 必要な設定ファイル作成
   - [x] デプロイ環境の準備完了
+- [x] fs.readdirSync未実装エラーの修正
+- [x] Shiki WebAssemblyエラーの修正
+- [x] Cloudflare Workersへのデプロイ実行
+- [x] カスタムドメイン設定（blog.zaki-yama.dev）
 
 ## 進行中 🚧
 
@@ -97,10 +101,14 @@
   - [ ] @vercel/og または Puppeteer での実装検討
   - [ ] テンプレートデザインの作成
 
-
 ### 追加機能（優先度：中）
 
 #### サイト機能拡張
+- [ ] シンタックスハイライトの再実装
+  - [ ] Prism.js または highlight.js の検討
+  - [ ] クライアントサイドでの実装
+  - [ ] ダークモード対応
+  - [ ] 主要言語のサポート確認
 
 
 - [ ] X(Twitter)カード展開機能を実装する
