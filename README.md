@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Technical Blog
+
+A modern technical blog built with Next.js 15 and deployed on Cloudflare Workers, designed for sharing programming knowledge and learning experiences.
+
+## Features
+
+- ✅ **Static Site Generation**: Fast loading with pre-rendered pages
+- ✅ **Markdown Support**: Write articles in pure Markdown with frontmatter
+- ✅ **Syntax Highlighting**: Code blocks with Shiki highlighting
+- ✅ **Responsive Design**: Mobile-first design with Tailwind CSS
+- ✅ **SEO Optimized**: Meta tags, sitemap, RSS feed, robots.txt
+- ✅ **Google Analytics**: Integrated tracking with GA4
+- ✅ **Edge Deployment**: Deployed on Cloudflare Workers for global performance
 
 ## Getting Started
 
-First, run the development server:
+### Development
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) to view the site
+
+### Writing Articles
+
+1. Create a new `.md` file in the `posts/` directory
+2. Add frontmatter:
+   ```markdown
+   ---
+   title: 'Your Article Title'
+   date: '2024-06-28'
+   category: 'Category Name'
+   description: 'Article description'
+   ---
+   
+   Your article content here...
+   ```
+
+3. The article will automatically appear on the homepage after build
+
+## Configuration
+
+### Google Analytics Setup
+
+1. Create a Google Analytics 4 property
+2. Get your measurement ID (format: `G-XXXXXXXXXX`)
+3. Set the environment variable:
+   ```bash
+   cp .env.local.example .env.local
+   # Edit .env.local and add your GA ID
+   ```
+
+For detailed setup instructions, see [docs/google-analytics-setup.md](docs/google-analytics-setup.md).
+
+### Environment Variables
+
+- `NEXT_PUBLIC_SITE_URL`: Your site URL (required for SEO)
+- `NEXT_PUBLIC_GA_ID`: Google Analytics measurement ID (optional)
+
+## Deployment
+
+This project is configured for Cloudflare Workers deployment:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Build and deploy
+npm run deploy
+
+# Preview deployment
+npm run preview
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Production Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Set these in your Cloudflare Workers environment:
+- `NEXT_PUBLIC_SITE_URL`: `https://your-domain.com`
+- `NEXT_PUBLIC_GA_ID`: Your Google Analytics ID
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+├── src/
+│   ├── app/           # Next.js App Router pages
+│   ├── components/    # React components
+│   └── lib/          # Utility functions
+├── posts/            # Blog articles (Markdown)
+├── docs/             # Documentation and work logs
+├── todo.md           # Task management
+└── wrangler.jsonc    # Cloudflare Workers configuration
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run deploy` - Deploy to Cloudflare Workers
+- `npm run preview` - Preview Cloudflare deployment locally
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS 4
+- **Syntax Highlighting**: Shiki
+- **Deployment**: Cloudflare Workers via OpenNext
+- **Analytics**: Google Analytics 4
+- **Content**: Markdown with gray-matter
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT License - see LICENSE file for details.
