@@ -25,6 +25,7 @@ export default function ImageUploader({
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const [uploadedResult, setUploadedResult] = useState<UploadResult | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const handleFileUpload = async (file: File) => {
     if (!file.type.startsWith('image/')) {
@@ -47,6 +48,7 @@ export default function ImageUploader({
 
       if (result.success) {
         setUploadedResult(result);
+        setCopied(false); // Reset copied state for new upload
         onUploadComplete?.(result);
       } else {
         alert('Upload failed: ' + result.error);
@@ -83,10 +85,10 @@ export default function ImageUploader({
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      alert('Copied to clipboard!');
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
     } catch (error) {
       console.error('Failed to copy:', error);
-      alert('Failed to copy to clipboard');
     }
   };
 
@@ -149,18 +151,25 @@ export default function ImageUploader({
                   type="text"
                   value={generateMarkdown(uploadedResult)}
                   readOnly
-                  className="flex-1 px-3 py-2 border border-green-300 rounded bg-white text-sm"
+                  className="flex-1 px-3 py-2 border border-green-300 rounded bg-white text-gray-900 text-sm"
                 />
                 <button
                   onClick={() => copyToClipboard(generateMarkdown(uploadedResult))}
-                  className="px-4 py-2 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition-colors"
+                  className={`px-4 py-2 text-white text-sm rounded transition-colors ${
+                    copied 
+                      ? 'bg-green-500' 
+                      : 'bg-green-600 hover:bg-green-700'
+                  }`}
                 >
-                  Copy
+                  {copied ? '✓ Copied!' : 'Copy'}
                 </button>
               </div>
             </div>
             <button
-              onClick={() => setUploadedResult(null)}
+              onClick={() => {
+                setUploadedResult(null);
+                setCopied(false);
+              }}
               className="text-sm text-green-600 hover:text-green-800 underline"
             >
               Upload another image
