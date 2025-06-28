@@ -72,6 +72,11 @@
 - [x] Shiki WebAssemblyエラーの修正
 - [x] Cloudflare Workersへのデプロイ実行
 - [x] カスタムドメイン設定（blog.zaki-yama.dev）
+- [x] Google Analytics 4統合
+  - [x] @next/third-partiesパッケージ導入
+  - [x] 環境変数設定の準備（.env.local.example作成）
+  - [x] Next.js App Routerでのトラッキングコード実装
+  - [x] セットアップガイド作成（docs/google-analytics-setup.md）
 
 ## 進行中 🚧
 
@@ -87,10 +92,6 @@
 ### 必須機能（優先度：高）
 
 #### SEO & Analytics
-- [ ] Google Analytics統合
-  - [ ] Google Analytics 4のアカウント作成サポート
-  - [ ] Next.jsへの統合コード実装
-  - [ ] 基本的なページビュー計測の確認
 
 
 #### メディア管理

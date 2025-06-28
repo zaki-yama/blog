@@ -21,6 +21,7 @@
 		}
 	],
 	"vars": {
-		"NEXT_PUBLIC_SITE_URL": "https://blog.zaki-yama.dev"
+		"NEXT_PUBLIC_SITE_URL": "https://blog.zaki-yama.dev",
+		"NEXT_PUBLIC_GA_ID": "G-WTRHNJ8JBX",
 	}
 }

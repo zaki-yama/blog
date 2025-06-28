@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ['gray-matter', 'remark', 'remark-html'],
-  },
+  serverExternalPackages: ['gray-matter', 'remark', 'remark-html'],
   images: {
     unoptimized: true,
   },
