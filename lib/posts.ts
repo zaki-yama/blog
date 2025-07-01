@@ -2,6 +2,7 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
+import rehypePrism from 'rehype-prism-plus';
 
 // Static list of post files for Cloudflare Workers compatibility
 const POST_FILES = [
@@ -61,6 +62,7 @@ export async function getPostData(id: string): Promise<PostData> {
 
   const processedContent = await remark()
     .use(remarkRehype)
+    .use(rehypePrism)
     .use(rehypeStringify)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();

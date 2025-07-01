@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "prism-themes/themes/prism-vsc-dark-plus.css";
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
@@ -43,36 +44,79 @@ body {
 
 .prose p { margin-bottom: 1.25rem; }
 
-/* Shiki code blocks - remove custom pre styling to let Shiki handle it */
-.prose pre {
-  padding: 1rem;
+/* Custom adjustments for Prism.js GitHub Colors theme */
+.prose pre[class*="language-"] {
   border-radius: 0.5rem;
-  overflow-x: auto;
   margin: 1.5rem 0;
 }
 
-/* Shiki dual theme support - hide dark theme by default */
-.shiki.dark,
-.shiki .dark {
-  display: none;
+/* Dark mode theme override */
+.dark .prose pre[class*="language-"] {
+  background: #272822;
 }
 
-/* Show dark theme when dark mode is active */
-.dark .shiki.dark,
-.dark .shiki .dark {
-  display: block;
+.dark .prose code[class*="language-"],
+.dark .prose pre[class*="language-"] {
+  color: #f8f8f2;
 }
 
-/* Hide light theme when dark mode is active */
-.dark .shiki.light,
-.dark .shiki .light {
-  display: none;
+/* Dark theme tokens */
+.dark .token.comment,
+.dark .token.prolog,
+.dark .token.doctype,
+.dark .token.cdata {
+  color: #75715e;
 }
 
-/* Show light theme by default */
-.shiki.light,
-.shiki .light {
-  display: block;
+.dark .token.punctuation {
+  color: #f8f8f2;
+}
+
+.dark .token.property,
+.dark .token.tag,
+.dark .token.constant,
+.dark .token.symbol,
+.dark .token.deleted {
+  color: #f92672;
+}
+
+.dark .token.boolean,
+.dark .token.number {
+  color: #ae81ff;
+}
+
+.dark .token.selector,
+.dark .token.attr-name,
+.dark .token.string,
+.dark .token.char,
+.dark .token.builtin,
+.dark .token.inserted {
+  color: #a6e22e;
+}
+
+.dark .token.operator,
+.dark .token.entity,
+.dark .token.url,
+.dark .language-css .token.string,
+.dark .style .token.string,
+.dark .token.variable {
+  color: #f8f8f2;
+}
+
+.dark .token.atrule,
+.dark .token.attr-value,
+.dark .token.function,
+.dark .token.class-name {
+  color: #e6db74;
+}
+
+.dark .token.keyword {
+  color: #66d9ef;
+}
+
+.dark .token.regex,
+.dark .token.important {
+  color: #fd971f;
 }
 
 /* Inline code styling */
@@ -89,7 +133,7 @@ body {
   color: #f9fafb;
 }
 
-/* Remove background for code inside pre blocks (handled by Shiki) */
+/* Remove background for code inside pre blocks (handled by Prism) */
 .prose pre code {
   background-color: transparent !important;
   padding: 0;
