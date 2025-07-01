@@ -60,10 +60,26 @@ A modern technical blog built with Next.js 15 and deployed on Cloudflare Workers
 
 For detailed setup instructions, see [docs/google-analytics-setup.md](docs/google-analytics-setup.md).
 
+### Cloudinary Setup (for Image Upload)
+
+1. Create a Cloudinary account at [cloudinary.com](https://cloudinary.com)
+2. Get your credentials from the Cloudinary dashboard:
+   - Cloud Name
+   - API Key
+   - API Secret
+3. Set the environment variables:
+   ```bash
+   cp .env.local.example .env.local
+   # Edit .env.local and add your Cloudinary credentials
+   ```
+
 ### Environment Variables
 
 - `NEXT_PUBLIC_SITE_URL`: Your site URL (required for SEO)
 - `NEXT_PUBLIC_GA_ID`: Google Analytics measurement ID (optional)
+- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`: Cloudinary cloud name (required for image upload)
+- `CLOUDINARY_API_KEY`: Cloudinary API key (required for image upload)
+- `CLOUDINARY_API_SECRET`: Cloudinary API secret (required for image upload)
 
 ## Deployment
 
