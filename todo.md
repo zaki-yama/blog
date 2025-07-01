@@ -51,6 +51,9 @@
 - [x] Cloudflareデプロイメント環境構築
 - [x] Cloudflare Workersへのデプロイ実行
 - [x] カスタムドメイン設定（blog.zaki-yama.dev）
+- [x] CI/CD自動デプロイ設定
+  - [x] Cloudflare WorkersでGitHub連携設定完了
+  - [x] mainブランチプッシュ時の自動デプロイ設定完了
 
 ### ドキュメント
 - [x] ドキュメント整理

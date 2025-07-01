@@ -1,6 +1,6 @@
 ---
 title: 'React入門 - 基本概念を理解する'
-date: '2024-06-18'
+date: '2024-07-01'
 category: 'プログラミング'
 description: 'Reactの基本概念であるコンポーネント、props、stateについて詳しく解説します。'
 ---
