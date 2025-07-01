@@ -41,7 +41,8 @@ description: 'Article description'
 ## Work Management
 
 ### Daily Work Logs (開発日誌)
-- Create `docs/YYYY-MM-DD-{topic}.md` for each work session
+- Create `docs/YYYY-MM-DD-{topic}.md` for each work session  
+- **IMPORTANT**: Always use `date` command to check current date before creating work logs
 - Include what was accomplished, challenges faced, emotions, and learnings
 - Write freely as personal notes for future reference
 - **Write in Japanese**
