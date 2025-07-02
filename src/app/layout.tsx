@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export const metadata: Metadata = generateSiteMetadata({
-  title: "Technical Blog",
+  title: "zaki-yama's blog",
   description: "A blog for sharing programming knowledge and learning experiences",
   url: baseUrl,
 });

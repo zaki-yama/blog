@@ -16,11 +16,11 @@
   - [x] 動作確認完了
 
 ### UI/UX改善
-- [ ] faviconを追加する
-  - [ ] ブログテーマに適したfaviconデザイン作成
-  - [ ] 複数サイズ（16x16, 32x32, 180x180等）の生成
-  - [ ] apple-touch-iconとmanifest.jsonの設定
-  - [ ] Next.jsアプリケーションへの統合
+- [x] faviconを追加する
+  - [x] ブログテーマに適したfaviconデザイン作成
+  - [x] 複数サイズ（16x16, 32x32, 180x180等）の生成
+  - [x] apple-touch-iconとmanifest.jsonの設定
+  - [x] Next.jsアプリケーションへの統合
 
 - [ ] OG画像自動生成機能を実装する
   - [ ] 記事タイトルから動的OG画像生成

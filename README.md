@@ -120,6 +120,28 @@ Set these in your Cloudflare Workers environment:
 - `npm run deploy` - Deploy to Cloudflare Workers
 - `npm run preview` - Preview Cloudflare deployment locally
 
+### Favicon Generation
+
+Generate favicon files from any image:
+
+```bash
+# Generate from image file
+./scripts/generate-favicon.sh path/to/your/image.png
+
+# Generate to specific directory
+./scripts/generate-favicon.sh path/to/your/image.png public/
+
+# Example
+./scripts/generate-favicon.sh assets/logo.png
+```
+
+This script generates:
+- `favicon.png` (original size)
+- `favicon-16x16.png`
+- `favicon-32x32.png`
+- `apple-touch-icon.png`
+- `src/app/favicon.ico`
+
 ## Tech Stack
 
 - **Framework**: Next.js 15 with App Router
