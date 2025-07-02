@@ -1,23 +1,10 @@
+import { notFound } from 'next/navigation';
 import ImageUploader from '@/components/ImageUploader';
 
 export default function AdminPage() {
   // Only allow access in development environment
   if (process.env.NODE_ENV !== 'development') {
-    return (
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
-          <h1 className="text-2xl font-bold text-yellow-800 mb-2">
-            Admin Access Restricted
-          </h1>
-          <p className="text-yellow-700">
-            The admin panel is only available in development environment.
-          </p>
-          <p className="text-yellow-600 text-sm mt-2">
-            To upload images, run the project locally with <code className="bg-yellow-100 px-1 rounded">npm run dev</code>
-          </p>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   return (
