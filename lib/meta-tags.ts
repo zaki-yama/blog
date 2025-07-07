@@ -20,8 +20,14 @@ interface SiteMetadata {
 
 export function generateArticleMetadata(data: ArticleMetadata): Metadata {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  const defaultImage = `${baseUrl}/og-image.png`;
-  const image = data.image || defaultImage;
+  
+  // Generate dynamic OG image URL
+  const ogImageUrl = new URL(`${baseUrl}/api/og`);
+  ogImageUrl.searchParams.set('title', data.title);
+  ogImageUrl.searchParams.set('category', data.category);
+  ogImageUrl.searchParams.set('type', 'article');
+  
+  const image = data.image || ogImageUrl.toString();
 
   return {
     title: data.title,
@@ -73,8 +79,13 @@ export function generateArticleMetadata(data: ArticleMetadata): Metadata {
 
 export function generateSiteMetadata(data: SiteMetadata): Metadata {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  const defaultImage = `${baseUrl}/og-image.png`;
-  const image = data.image || defaultImage;
+  
+  // Generate dynamic OG image URL for site
+  const ogImageUrl = new URL(`${baseUrl}/api/og`);
+  ogImageUrl.searchParams.set('title', data.title);
+  ogImageUrl.searchParams.set('type', 'site');
+  
+  const image = data.image || ogImageUrl.toString();
 
   return {
     title: {
