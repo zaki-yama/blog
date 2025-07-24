@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design 4: Cyberpunk Cool Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            blue: '#00f0ff',
+                            purple: '#d946ef',
+                            green: '#39ff14',
+                            pink: '#ff073a',
+                        },
+                        cyber: {
+                            dark: '#0a0a0f',
+                            darker: '#050507',
+                            card: '#1a1a2e',
+                        }
+                    },
+                    animation: {
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 3s ease-in-out infinite',
+                        'matrix': 'matrix 20s linear infinite',
+                        'scan': 'scan 2s linear infinite',
+                        'flicker': 'flicker 0.15s infinite linear',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #00f0ff, 0 0 10px #00f0ff, 0 0 15px #00f0ff' },
+                            '100%': { boxShadow: '0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        matrix: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100vh)' }
+                        },
+                        scan: {
+                            '0%, 100%': { transform: 'translateX(-100%)' },
+                            '50%': { transform: 'translateX(100vw)' }
+                        },
+                        flicker: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.8' }
+                        }
+                    },
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'Monaco', 'Consolas', 'monospace'],
+                        'cyber': ['Orbitron', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+        
+        .glass-effect {
+            background: rgba(26, 26, 46, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff, 0 0 15px #00f0ff;
+        }
+        
+        .neon-border {
+            border: 1px solid #00f0ff;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.5), inset 0 0 10px rgba(0, 240, 255, 0.1);
+        }
+        
+        .matrix-bg::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(217, 70, 239, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 60%, rgba(57, 255, 20, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .scan-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.4), transparent);
+            animation: scan 3s linear infinite;
+        }
+        
+        .hologram {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hologram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(0, 240, 255, 0.2) 50%, transparent 70%);
+            animation: scan 2s linear infinite;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-neon-blue font-mono matrix-bg">
+    <!-- Background Matrix Effect -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute inset-0 opacity-10">
+            <div class="text-neon-green text-xs animate-matrix absolute top-0 left-1/4">01100001</div>
+            <div class="text-neon-blue text-xs animate-matrix absolute top-0 left-2/4" style="animation-delay: -5s">11010110</div>
+            <div class="text-neon-purple text-xs animate-matrix absolute top-0 left-3/4" style="animation-delay: -10s">10101010</div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="glass-effect sticky top-0 z-50 border-b border-neon-blue/30">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <div class="w-12 h-12 bg-gradient-to-r from-neon-blue to-neon-purple rounded-lg flex items-center justify-center animate-glow">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <div class="absolute -inset-1 bg-gradient-to-r from-neon-blue to-neon-purple rounded-lg blur opacity-30 animate-pulse"></div>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-cyber font-bold neon-text">
+                            CYBERLOG
+                        </h1>
+                        <p class="text-xs text-neon-green animate-flicker">//dev.terminal.log</p>
+                    </div>
+                </div>
+                
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="#" class="relative text-neon-blue hover:text-neon-green transition-colors font-mono text-sm group">
+                        <span class="relative z-10">[HOME]</span>
+                        <div class="absolute inset-0 bg-neon-blue/10 scale-0 group-hover:scale-100 transition-transform rounded"></div>
+                    </a>
+                    <a href="#" class="relative text-neon-blue hover:text-neon-green transition-colors font-mono text-sm group">
+                        <span class="relative z-10">[POSTS]</span>
+                        <div class="absolute inset-0 bg-neon-blue/10 scale-0 group-hover:scale-100 transition-transform rounded"></div>
+                    </a>
+                    <a href="#" class="relative text-neon-blue hover:text-neon-green transition-colors font-mono text-sm group">
+                        <span class="relative z-10">[ARCHIVE]</span>
+                        <div class="absolute inset-0 bg-neon-blue/10 scale-0 group-hover:scale-100 transition-transform rounded"></div>
+                    </a>
+                    <a href="#" class="relative text-neon-blue hover:text-neon-green transition-colors font-mono text-sm group">
+                        <span class="relative z-10">[ABOUT]</span>
+                        <div class="absolute inset-0 bg-neon-blue/10 scale-0 group-hover:scale-100 transition-transform rounded"></div>
+                    </a>
+                    <button class="px-4 py-2 neon-border bg-neon-blue/10 text-neon-blue hover:bg-neon-blue hover:text-cyber-dark transition-all duration-300 rounded font-mono text-sm animate-glow">
+                        [CONNECT]
+                    </button>
+                </nav>
+                
+                <button class="lg:hidden text-neon-blue">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-block mb-8">
+                    <span class="text-neon-green font-mono text-sm animate-flicker">&gt; initializing_neural_network...</span>
+                </div>
+                
+                <h2 class="text-6xl md:text-8xl font-cyber font-black mb-8 relative">
+                    <span class="bg-gradient-to-r from-neon-blue via-neon-purple to-neon-green bg-clip-text text-transparent animate-glow">
+                        NEURAL
+                    </span>
+                    <br/>
+                    <span class="text-white neon-text">
+                        CODE.EXE
+                    </span>
+                </h2>
+                
+                <div class="glass-effect rounded-2xl p-8 max-w-4xl mx-auto mb-12 hologram">
+                    <p class="text-xl text-neon-blue font-mono leading-relaxed">
+                        <span class="text-neon-green">&gt;</span> 
+                        最先端テクノロジーと実践的コーディングの融合点
+                        <span class="animate-pulse">_</span>
+                    </p>
+                    <p class="text-lg text-neon-purple mt-4 font-mono">
+                        <span class="text-neon-pink">//</span> AI時代の開発者として生き抜くための知識ベース
+                    </p>
+                </div>
+
+                <!-- Terminal Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                    <div class="glass-effect rounded-xl p-6 text-center neon-border relative overflow-hidden">
+                        <div class="scan-line absolute inset-0"></div>
+                        <div class="text-3xl font-cyber font-bold text-neon-green mb-2 animate-flicker">256</div>
+                        <div class="text-sm text-neon-blue font-mono">[MODULES]</div>
+                    </div>
+                    <div class="glass-effect rounded-xl p-6 text-center neon-border relative overflow-hidden">
+                        <div class="scan-line absolute inset-0"></div>
+                        <div class="text-3xl font-cyber font-bold text-neon-purple mb-2 animate-flicker">64K</div>
+                        <div class="text-sm text-neon-blue font-mono">[CONNECTIONS]</div>
+                    </div>
+                    <div class="glass-effect rounded-xl p-6 text-center neon-border relative overflow-hidden">
+                        <div class="scan-line absolute inset-0"></div>
+                        <div class="text-3xl font-cyber font-bold text-neon-pink mb-2 animate-flicker">42</div>
+                        <div class="text-sm text-neon-blue font-mono">[PROTOCOLS]</div>
+                    </div>
+                    <div class="glass-effect rounded-xl p-6 text-center neon-border relative overflow-hidden">
+                        <div class="scan-line absolute inset-0"></div>
+                        <div class="text-3xl font-cyber font-bold text-neon-blue mb-2 animate-flicker">99.9%</div>
+                        <div class="text-sm text-neon-blue font-mono">[UPTIME]</div>
+                    </div>
+                </div>
+
+                <!-- Tech Tags -->
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="px-4 py-2 glass-effect neon-border text-neon-blue font-mono text-sm hover:bg-neon-blue hover:text-cyber-dark transition-all duration-300 cursor-pointer">
+                        [REACT.NEURAL]
+                    </span>
+                    <span class="px-4 py-2 glass-effect neon-border text-neon-green font-mono text-sm hover:bg-neon-green hover:text-cyber-dark transition-all duration-300 cursor-pointer">
+                        [AI.SYSTEMS]
+                    </span>
+                    <span class="px-4 py-2 glass-effect neon-border text-neon-purple font-mono text-sm hover:bg-neon-purple hover:text-cyber-dark transition-all duration-300 cursor-pointer">
+                        [BLOCKCHAIN.ETH]
+                    </span>
+                    <span class="px-4 py-2 glass-effect neon-border text-neon-pink font-mono text-sm hover:bg-neon-pink hover:text-cyber-dark transition-all duration-300 cursor-pointer">
+                        [QUANTUM.DEV]
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section class="max-w-7xl mx-auto px-6 mb-20">
+        <div class="flex items-center mb-8">
+            <div class="text-neon-green font-mono text-sm mr-4">&gt; featured_module.load()</div>
+            <div class="flex-1 h-px bg-gradient-to-r from-neon-green via-neon-blue to-transparent"></div>
+        </div>
+        
+        <article class="glass-effect rounded-3xl overflow-hidden neon-border hover:shadow-neon-blue/50 hover:shadow-2xl transition-all duration-500 group relative">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-green animate-pulse"></div>
+            
+            <div class="lg:flex">
+                <div class="lg:w-1/2 relative">
+                    <div class="h-64 lg:h-full bg-gradient-to-br from-cyber-card via-neon-blue/20 to-neon-purple/20 flex items-center justify-center relative overflow-hidden">
+                        <!-- Animated Circuit Pattern -->
+                        <div class="absolute inset-0 opacity-30">
+                            <svg viewBox="0 0 100 100" class="w-full h-full">
+                                <defs>
+                                    <pattern id="circuit" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                                        <path d="M0,5 L10,5 M5,0 L5,10" stroke="#00f0ff" stroke-width="0.5" fill="none" opacity="0.5"/>
+                                        <circle cx="5" cy="5" r="1" fill="#00f0ff" opacity="0.7"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="100" height="100" fill="url(#circuit)"/>
+                            </svg>
+                        </div>
+                        
+                        <div class="relative z-10 text-center">
+                            <div class="w-24 h-24 mx-auto mb-4 glass-effect rounded-2xl flex items-center justify-center animate-float">
+                                <svg class="w-12 h-12 text-neon-blue" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                </svg>
+                            </div>
+                            <span class="px-3 py-1 glass-effect neon-border text-neon-green text-xs font-mono">
+                                [PRIORITY.HIGH]
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 p-8 lg:p-12">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="px-3 py-1 bg-neon-blue/20 neon-border text-neon-blue text-xs font-mono">
+                            REACT.18
+                        </span>
+                        <span class="px-3 py-1 bg-neon-purple/20 neon-border text-neon-purple text-xs font-mono">
+                            NEURAL.NET
+                        </span>
+                        <div class="text-neon-green text-xs font-mono">
+                            <span class="animate-flicker">2024.06.19</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-3xl font-cyber font-bold text-white mb-6 group-hover:text-neon-blue transition-colors">
+                        <a href="design-4-article.html">NEURAL_REACT.18_EVOLUTION();</a>
+                    </h3>
+                    
+                    <div class="space-y-4 mb-8 font-mono text-sm">
+                        <p class="text-neon-blue">
+                            <span class="text-neon-green">&gt;</span> Server Components and Concurrent Rendering:
+                        </p>
+                        <p class="text-neon-purple pl-4">
+                            // 次世代アーキテクチャによるパフォーマンス革命
+                        </p>
+                        <p class="text-neon-blue pl-4">
+                            // Neural networkのような並行処理でUX最適化
+                        </p>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-6 text-xs font-mono">
+                            <div class="flex items-center gap-2 text-neon-green">
+                                <span class="w-2 h-2 bg-neon-green rounded-full animate-pulse"></span>
+                                <span>3,847 bytes</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-neon-purple">
+                                <span class="w-2 h-2 bg-neon-purple rounded-full animate-pulse"></span>
+                                <span>187 forks</span>
+                            </div>
+                            <div class="text-neon-blue">
+                                <span>runtime: 12min</span>
+                            </div>
+                        </div>
+                        
+                        <button class="px-6 py-3 glass-effect neon-border text-neon-blue hover:bg-neon-blue hover:text-cyber-dark transition-all duration-300 font-mono text-sm group/btn">
+                            <span class="group-hover/btn:animate-flicker">[EXECUTE]</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- Recent Posts Grid -->
+    <section class="max-w-7xl mx-auto px-6 mb-20">
+        <div class="flex items-center justify-between mb-12">
+            <div class="flex items-center">
+                <div class="text-neon-purple font-mono text-sm mr-4">&gt; recent_modules.list()</div>
+                <div class="flex-1 h-px bg-gradient-to-r from-neon-purple via-neon-pink to-transparent"></div>
+            </div>
+            <button class="px-4 py-2 glass-effect neon-border text-neon-blue hover:bg-neon-blue hover:text-cyber-dark transition-all duration-300 font-mono text-xs">
+                [VIEW_ALL]
+            </button>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Article Card 1 -->
+            <article class="glass-effect rounded-2xl overflow-hidden neon-border hover:shadow-neon-green/50 hover:shadow-xl transition-all duration-300 group relative">
+                <div class="absolute top-0 left-0 w-full h-0.5 bg-neon-green animate-pulse"></div>
+                
+                <div class="relative h-48 bg-gradient-to-br from-neon-green/20 to-cyber-card overflow-hidden">
+                    <div class="absolute inset-0 bg-black/20"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 mx-auto mb-3 glass-effect rounded-xl flex items-center justify-center">
+                                <svg class="w-8 h-8 text-neon-green" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                </svg>
+                            </div>
+                            <span class="text-xs font-mono text-neon-green">[API.NEURAL]</span>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4">
+                        <span class="px-2 py-1 glass-effect text-neon-green text-xs font-mono">
+                            NODE.JS
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-4 text-xs font-mono">
+                        <span class="text-neon-green animate-flicker">06.15</span>
+                        <span class="text-neon-blue">•</span>
+                        <span class="text-neon-blue">6min runtime</span>
+                    </div>
+                    
+                    <h4 class="text-lg font-cyber font-bold text-white mb-3 group-hover:text-neon-green transition-colors">
+                        <a href="design-4-article.html">QUANTUM_API.architecture()</a>
+                    </h4>
+                    
+                    <div class="space-y-2 mb-4 font-mono text-xs">
+                        <p class="text-neon-blue">
+                            <span class="text-neon-green">//</span> スケーラブル分散システム設計
+                        </p>
+                        <p class="text-neon-purple">
+                            <span class="text-neon-green">//</span> マイクロサービス量子通信
+                        </p>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4 text-xs font-mono">
+                            <span class="flex items-center gap-1 text-neon-green">
+                                <span class="w-1 h-1 bg-neon-green rounded-full"></span>
+                                1,234
+                            </span>
+                            <span class="flex items-center gap-1 text-neon-purple">
+                                <span class="w-1 h-1 bg-neon-purple rounded-full"></span>
+                                89
+                            </span>
+                        </div>
+                        <span class="px-2 py-1 bg-neon-green/20 text-neon-green rounded text-xs font-mono">
+                            [BACKEND]
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article Card 2 -->
+            <article class="glass-effect rounded-2xl overflow-hidden neon-border hover:shadow-neon-purple/50 hover:shadow-xl transition-all duration-300 group relative">
+                <div class="absolute top-0 left-0 w-full h-0.5 bg-neon-purple animate-pulse"></div>
+                
+                <div class="relative h-48 bg-gradient-to-br from-neon-purple/20 to-cyber-card overflow-hidden">
+                    <div class="absolute inset-0 bg-black/20"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 mx-auto mb-3 glass-effect rounded-xl flex items-center justify-center">
+                                <svg class="w-8 h-8 text-neon-purple" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                </svg>
+                            </div>
+                            <span class="text-xs font-mono text-neon-purple">[TYPE.SAFE]</span>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4">
+                        <span class="px-2 py-1 glass-effect text-neon-purple text-xs font-mono">
+                            TS.AI
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-4 text-xs font-mono">
+                        <span class="text-neon-purple animate-flicker">06.12</span>
+                        <span class="text-neon-blue">•</span>
+                        <span class="text-neon-blue">9min runtime</span>
+                    </div>
+                    
+                    <h4 class="text-lg font-cyber font-bold text-white mb-3 group-hover:text-neon-purple transition-colors">
+                        <a href="design-4-article.html">AI_TYPES.generics&lt;T&gt;()</a>
+                    </h4>
+                    
+                    <div class="space-y-2 mb-4 font-mono text-xs">
+                        <p class="text-neon-blue">
+                            <span class="text-neon-purple">//</span> 高度型推論とAI型生成
+                        </p>
+                        <p class="text-neon-green">
+                            <span class="text-neon-purple">//</span> コンパイル時型安全性強化
+                        </p>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4 text-xs font-mono">
+                            <span class="flex items-center gap-1 text-neon-purple">
+                                <span class="w-1 h-1 bg-neon-purple rounded-full"></span>
+                                987
+                            </span>
+                            <span class="flex items-center gap-1 text-neon-blue">
+                                <span class="w-1 h-1 bg-neon-blue rounded-full"></span>
+                                64
+                            </span>
+                        </div>
+                        <span class="px-2 py-1 bg-neon-purple/20 text-neon-purple rounded text-xs font-mono">
+                            [FRONTEND]
+                        </span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Article Card 3 -->
+            <article class="glass-effect rounded-2xl overflow-hidden neon-border hover:shadow-neon-pink/50 hover:shadow-xl transition-all duration-300 group relative">
+                <div class="absolute top-0 left-0 w-full h-0.5 bg-neon-pink animate-pulse"></div>
+                
+                <div class="relative h-48 bg-gradient-to-br from-neon-pink/20 to-cyber-card overflow-hidden">
+                    <div class="absolute inset-0 bg-black/20"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <div class="w-16 h-16 mx-auto mb-3 glass-effect rounded-xl flex items-center justify-center">
+                                <svg class="w-8 h-8 text-neon-pink" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                </svg>
+                            </div>
+                            <span class="text-xs font-mono text-neon-pink">[PERF.OPT]</span>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4">
+                        <span class="px-2 py-1 glass-effect text-neon-pink text-xs font-mono">
+                            CORE.WEB
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-4 text-xs font-mono">
+                        <span class="text-neon-pink animate-flicker">06.10</span>
+                        <span class="text-neon-blue">•</span>
+                        <span class="text-neon-blue">7min runtime</span>
+                    </div>
+                    
+                    <h4 class="text-lg font-cyber font-bold text-white mb-3 group-hover:text-neon-pink transition-colors">
+                        <a href="design-4-article.html">QUANTUM_PERF.vitals()</a>
+                    </h4>
+                    
+                    <div class="space-y-2 mb-4 font-mono text-xs">
+                        <p class="text-neon-blue">
+                            <span class="text-neon-pink">//</span> Core Web Vitals最適化
+                        </p>
+                        <p class="text-neon-green">
+                            <span class="text-neon-pink">//</span> 量子並列画像処理
+                        </p>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4 text-xs font-mono">
+                            <span class="flex items-center gap-1 text-neon-pink">
+                                <span class="w-1 h-1 bg-neon-pink rounded-full"></span>
+                                1,567
+                            </span>
+                            <span class="flex items-center gap-1 text-neon-green">
+                                <span class="w-1 h-1 bg-neon-green rounded-full"></span>
+                                92
+                            </span>
+                        </div>
+                        <span class="px-2 py-1 bg-neon-pink/20 text-neon-pink rounded text-xs font-mono">
+                            [OPTIMIZE]
+                        </span>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- Load More -->
+        <div class="text-center mt-12">
+            <button class="px-8 py-4 glass-effect neon-border text-neon-blue hover:bg-neon-blue hover:text-cyber-dark transition-all duration-300 font-mono hover:animate-glow">
+                [LOAD_MORE_MODULES]
+            </button>
+        </div>
+    </section>
+
+    <!-- Terminal Newsletter -->
+    <section class="max-w-4xl mx-auto px-6 mb-20">
+        <div class="glass-effect rounded-3xl p-12 text-center neon-border relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-green animate-pulse"></div>
+            
+            <div class="relative z-10">
+                <div class="mb-6">
+                    <span class="text-neon-green font-mono text-sm animate-flicker">&gt; subscribe_to_neural_feed.exe</span>
+                </div>
+                
+                <h3 class="text-3xl font-cyber font-bold text-white mb-4 neon-text">
+                    NEURAL_NETWORK.subscribe()
+                </h3>
+                
+                <p class="text-lg mb-8 font-mono text-neon-blue">
+                    <span class="text-neon-green">//</span> 最新の技術情報を神経接続で直送
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <input 
+                        type="email" 
+                        placeholder="neural.address@domain.net"
+                        class="flex-1 px-6 py-4 bg-cyber-card/50 neon-border text-neon-blue placeholder-neon-blue/50 focus:outline-none focus:shadow-neon-blue/50 focus:shadow-lg transition-all font-mono text-sm"
+                    />
+                    <button class="px-8 py-4 bg-neon-blue/20 neon-border text-neon-blue hover:bg-neon-blue hover:text-cyber-dark transition-all duration-300 font-mono text-sm animate-glow">
+                        [CONNECT]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-cyber-darker border-t border-neon-blue/30 relative">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-neon-blue to-transparent"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-r from-neon-blue to-neon-purple rounded-lg flex items-center justify-center animate-glow">
+                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-cyber font-bold neon-text">
+                                CYBERLOG
+                            </h1>
+                            <p class="text-xs text-neon-green font-mono animate-flicker">
+                                //neural.dev.terminal
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 font-mono text-sm">
+                        <p class="text-neon-blue">
+                            <span class="text-neon-green">&gt;</span> AI時代における開発者の進化を加速
+                        </p>
+                        <p class="text-neon-purple">
+                            <span class="text-neon-pink">//</span> 最新技術と実践的知識の融合プラットフォーム
+                        </p>
+                        <p class="text-neon-blue">
+                            <span class="text-neon-green">//</span> quantum.computing.ready = true;
+                        </p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-cyber font-bold text-neon-green mb-6">[MODULES]</h4>
+                    <ul class="space-y-3 font-mono text-sm">
+                        <li><a href="#" class="text-neon-blue hover:text-neon-green transition-colors">neural.react</a></li>
+                        <li><a href="#" class="text-neon-blue hover:text-neon-green transition-colors">quantum.api</a></li>
+                        <li><a href="#" class="text-neon-blue hover:text-neon-green transition-colors">ai.systems</a></li>
+                        <li><a href="#" class="text-neon-blue hover:text-neon-green transition-colors">blockchain.eth</a></li>
+                        <li><a href="#" class="text-neon-blue hover:text-neon-green transition-colors">performance.core</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-cyber font-bold text-neon-purple mb-6">[SYSTEM]</h4>
+                    <ul class="space-y-3 font-mono text-sm">
+                        <li><a href="#" class="text-neon-blue hover:text-neon-purple transition-colors">about.exe</a></li>
+                        <li><a href="#" class="text-neon-blue hover:text-neon-purple transition-colors">contact.sh</a></li>
+                        <li><a href="#" class="text-neon-blue hover:text-neon-purple transition-colors">privacy.log</a></li>
+                        <li><a href="#" class="text-neon-blue hover:text-neon-purple transition-colors">terms.txt</a></li>
+                        <li><a href="#" class="text-neon-blue hover:text-neon-purple transition-colors">rss.feed</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-neon-blue/30 pt-8 text-center">
+                <div class="font-mono text-sm text-neon-blue mb-4">
+                    <span class="text-neon-green">&gt;</span> system.status: <span class="text-neon-green animate-flicker">ONLINE</span>
+                </div>
+                <p class="font-mono text-xs text-neon-purple">
+                    &copy; 2024 CYBERLOG.NEURAL_NET // Powered by quantum consciousness
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

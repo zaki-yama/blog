@@ -17,6 +17,14 @@ body {
   transition: background-color 0.2s, color 0.2s;
 }
 
+/* Line clamp utility for text truncation */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* プロースタイリング */
 .prose {
   max-width: 65ch;
