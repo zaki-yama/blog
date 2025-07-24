@@ -5,10 +5,6 @@ category: 'プログラミング'
 description: 'Reactの基本概念であるコンポーネント、props、stateについて詳しく解説します。'
 ---
 
-# React入門 - 基本概念を理解する
-
-Reactを学び始める際に最初に理解すべき基本概念について説明します。
-
 ## Reactとは
 
 ReactはFacebook（現Meta）が開発したJavaScriptライブラリで、ユーザーインターフェース（UI）を構築するために使用されます。
