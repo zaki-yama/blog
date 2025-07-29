@@ -31,7 +31,7 @@ export default async function Home() {
           <div className="max-w-7xl mx-auto relative">
             <div className="text-center mb-16">
               <h1 className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
-                zaki-yama's blog
+                zaki-yama&apos;s blog
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
                 プログラマーの学習記録とアウトプット

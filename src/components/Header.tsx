@@ -44,7 +44,7 @@ export default function Header() {
             </div>
             <div>
               <Link href="/" className="text-2xl font-bold text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
-                zaki-yama's blog
+                zaki-yama&apos;s blog
               </Link>
             </div>
           </div>
