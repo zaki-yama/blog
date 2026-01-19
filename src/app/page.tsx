@@ -25,19 +25,19 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: organizationJsonLd }}
       />
-      <div className="max-w-3xl mx-auto px-6 py-16">
-        <header className="mb-20">
-          <div className="flex items-center gap-5">
+      <div className="max-w-2xl mx-auto px-5 py-8">
+        <header className="mb-10">
+          <div className="flex items-center gap-4">
             <img
               src="/logo.png"
               alt="zaki-yama.dev"
-              className="w-20 h-20 rounded-full"
+              className="w-14 h-14 rounded-full"
             />
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white">
                 zaki-yama.dev
               </h1>
-              <p className="text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 プログラマーの学習記録とアウトプット
               </p>
             </div>
@@ -48,15 +48,15 @@ export default async function Home() {
           <div className="space-y-0">
             {allPostsData.map(({ id, date, title, category }, index) => (
               <Link key={id} href={`/posts/${id}`} className="group block">
-                <article className={`grid grid-cols-[100px_1fr] gap-6 py-5 ${index !== 0 ? 'border-t border-gray-100 dark:border-gray-800' : ''}`}>
-                  <div className="text-sm text-gray-400 dark:text-gray-500 pt-0.5 font-mono">
+                <article className={`grid grid-cols-[90px_1fr] gap-4 py-3 ${index !== 0 ? 'border-t border-gray-100 dark:border-gray-800' : ''}`}>
+                  <div className="text-xs text-gray-400 dark:text-gray-500 pt-0.5 font-mono">
                     {date}
                   </div>
                   <div>
-                    <h2 className="text-base font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-relaxed">
+                    <h2 className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-relaxed">
                       {title}
                     </h2>
-                    <span className="text-xs text-gray-400 dark:text-gray-500 mt-1 inline-block">
+                    <span className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 inline-block">
                       {category}
                     </span>
                   </div>
