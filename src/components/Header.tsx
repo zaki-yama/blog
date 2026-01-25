@@ -35,13 +35,13 @@ export default function Header() {
 
   return (
     <header className="border-b border-gray-100 dark:border-gray-800">
-      <div className="max-w-2xl mx-auto px-5 py-3">
+      <div className="max-w-3xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-sm font-medium text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+          <Link href="/" className="text-base font-medium text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
             zaki-yama.dev
           </Link>
 
-          <nav className="flex items-center space-x-3">
+          <nav className="flex items-center space-x-4">
             <a
               href="/rss.xml"
               className="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
