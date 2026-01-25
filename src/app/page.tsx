@@ -25,7 +25,7 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: organizationJsonLd }}
       />
-      <div className="max-w-5xl mx-auto px-4 py-12">
+      <div className="mx-auto px-8 py-12 max-w-[896px]">
         <header className="mb-12">
           <div className="flex items-center gap-5">
             <img
