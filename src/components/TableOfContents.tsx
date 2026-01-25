@@ -96,7 +96,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   }
 
   return (
-    <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+    <div>
       <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
         Contents
       </h3>

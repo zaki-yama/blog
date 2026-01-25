@@ -27,7 +27,6 @@ body {
 
 /* プロースタイリング */
 .prose {
-  max-width: 65ch;
   color: #374151;
   line-height: 1.7;
 }
