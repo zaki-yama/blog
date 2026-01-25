@@ -58,40 +58,46 @@ export default async function Post({ params }: { params: Promise<{ id: string }>
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: breadcrumbJsonLd }}
       />
-      <div className="max-w-3xl mx-auto px-6 py-12">
-        <Link href="/" className="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 mb-12 inline-flex items-center gap-2 text-sm transition-colors">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <Link href="/" className="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 mb-8 inline-flex items-center gap-2 text-sm transition-colors">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
           </svg>
           Back
         </Link>
 
-        <article>
-          <header className="mb-12">
-            <div className="flex items-center gap-3 text-sm text-gray-400 dark:text-gray-500 mb-4 font-mono">
-              <time>{postData.date}</time>
-              <span>·</span>
-              <span>{postData.category}</span>
+        <div className="flex gap-8">
+          {/* Main article */}
+          <article className="flex-1 min-w-0">
+            <header className="mb-8">
+              <div className="flex items-center gap-3 text-sm text-gray-400 dark:text-gray-500 mb-4 font-mono">
+                <time>{postData.date}</time>
+                <span>·</span>
+                <span>{postData.category}</span>
+              </div>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white leading-tight">
+                {postData.title}
+              </h1>
+            </header>
+
+            <div className="prose prose-lg max-w-none">
+              <div dangerouslySetInnerHTML={{ __html: postData.content }} />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white leading-tight">
-              {postData.title}
-            </h1>
-          </header>
 
-          <div className="prose prose-lg max-w-none">
-            <div dangerouslySetInnerHTML={{ __html: postData.content }} />
-          </div>
+            <footer className="mt-12 pt-6 border-t border-gray-100 dark:border-gray-800">
+              <SocialShareButtons
+                title={postData.title}
+                url={currentUrl}
+                description={postData.description}
+              />
+            </footer>
+          </article>
 
-          <footer className="mt-16 pt-8 border-t border-gray-100 dark:border-gray-800">
-            <SocialShareButtons
-              title={postData.title}
-              url={currentUrl}
-              description={postData.description}
-            />
-          </footer>
-        </article>
-
-        <TableOfContents content={postData.content} />
+          {/* Table of Contents - sidebar */}
+          <aside className="hidden lg:block w-56 flex-shrink-0">
+            <TableOfContents content={postData.content} />
+          </aside>
+        </div>
       </div>
     </>
   );
