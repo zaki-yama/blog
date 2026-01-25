@@ -37,9 +37,6 @@ export default async function Home() {
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
                 zaki-yama.dev
               </h1>
-              <p className="text-gray-500 dark:text-gray-400">
-                プログラマーの学習記録とアウトプット
-              </p>
             </div>
           </div>
         </header>
