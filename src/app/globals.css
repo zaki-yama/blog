@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "prism-themes/themes/prism-vsc-dark-plus.css";
+@import 'tailwindcss';
+@import 'prism-themes/themes/prism-vsc-dark-plus.css';
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
@@ -13,8 +13,13 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, sans-serif;
-  transition: background-color 0.2s, color 0.2s;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }
 
 /* Line clamp utility for text truncation */
@@ -35,35 +40,59 @@ body {
   color: #d1d5db;
 }
 
-.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
   color: #111827;
   font-weight: 600;
   line-height: 1.25;
 }
 
-.dark .prose h1, .dark .prose h2, .dark .prose h3, .dark .prose h4, .dark .prose h5, .dark .prose h6 {
+.dark .prose h1,
+.dark .prose h2,
+.dark .prose h3,
+.dark .prose h4,
+.dark .prose h5,
+.dark .prose h6 {
   color: #f9fafb;
 }
 
-.prose h1 { font-size: 2rem; margin-top: 2rem; margin-bottom: 1rem; }
-.prose h2 { font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; }
-.prose h3 { font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+.prose h1 {
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.prose h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.prose h3 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
 
-.prose p { margin-bottom: 1.25rem; }
+.prose p {
+  margin-bottom: 1.25rem;
+}
 
 /* Custom adjustments for Prism.js GitHub Colors theme */
-.prose pre[class*="language-"] {
+.prose pre[class*='language-'] {
   border-radius: 0.5rem;
   margin: 1.5rem 0;
 }
 
 /* Dark mode theme override */
-.dark .prose pre[class*="language-"] {
+.dark .prose pre[class*='language-'] {
   background: #272822;
 }
 
-.dark .prose code[class*="language-"],
-.dark .prose pre[class*="language-"] {
+.dark .prose code[class*='language-'],
+.dark .prose pre[class*='language-'] {
   color: #f8f8f2;
 }
 
@@ -160,7 +189,8 @@ body {
   color: #9ca3af;
 }
 
-.prose ul, .prose ol {
+.prose ul,
+.prose ol {
   margin: 1.25rem 0;
   padding-left: 1.5rem;
 }
@@ -183,13 +213,15 @@ body {
   border-collapse: collapse;
 }
 
-.prose th, .prose td {
+.prose th,
+.prose td {
   border: 1px solid #e5e7eb;
   padding: 0.75rem;
   text-align: left;
 }
 
-.dark .prose th, .dark .prose td {
+.dark .prose th,
+.dark .prose td {
   border-color: #4b5563;
 }
 

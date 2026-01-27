@@ -88,8 +88,11 @@
 
 ### コード品質
 - [ ] TypeScript型定義の強化
-- [ ] ESLint/Prettierの設定最適化
-- [ ] ESLint -> Biomeへの移行
+- [x] Linter/Formatterの最適化
+  - [x] ESLintからoxlintへ移行
+  - [x] oxfmtでformatter導入
+  - [x] Next.js/React/TypeScript向けの設定最適化
+  - [x] package.jsonスクリプトの更新
 - [ ] 単体テストの実装（Jest + Testing Library）
 
 ### ユーザビリティ

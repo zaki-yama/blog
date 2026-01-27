@@ -7,26 +7,20 @@ export async function POST(request: NextRequest) {
     if (process.env.NODE_ENV !== 'development') {
       return NextResponse.json(
         { error: 'Upload endpoint is only available in development environment' },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
     // Check if Cloudinary is configured
     if (!process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
-      return NextResponse.json(
-        { error: 'Cloudinary not configured' },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: 'Cloudinary not configured' }, { status: 500 });
     }
 
     const formData = await request.formData();
     const file = formData.get('file') as File;
-    
+
     if (!file) {
-      return NextResponse.json(
-        { error: 'No file provided' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
     // Convert file to buffer
@@ -39,10 +33,8 @@ export async function POST(request: NextRequest) {
       {
         folder: 'blog-images',
         resource_type: 'auto',
-        transformation: [
-          { quality: 'auto', fetch_format: 'auto' }
-        ]
-      }
+        transformation: [{ quality: 'auto', fetch_format: 'auto' }],
+      },
     );
 
     return NextResponse.json({
@@ -52,14 +44,10 @@ export async function POST(request: NextRequest) {
       width: result.width,
       height: result.height,
       format: result.format,
-      bytes: result.bytes
+      bytes: result.bytes,
     });
-
   } catch (error) {
     console.error('Upload error:', error);
-    return NextResponse.json(
-      { error: 'Upload failed' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
   }
 }
