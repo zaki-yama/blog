@@ -9,9 +9,9 @@ This is a technical blog built with Next.js, designed for sharing programming kn
 ## Commands
 
 ### Development
-- `npm run dev` - Start Next.js development server
-- `npm run build` - Build the static site
-- `npm start` - Start production server
+- `pnpm dev` - Start Next.js development server
+- `pnpm build` - Build the static site
+- `pnpm start` - Start production server
 
 ### Project Structure
 - `src/app/` - Next.js App Router pages
