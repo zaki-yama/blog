@@ -14,9 +14,7 @@ export default function AdminPage() {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             Blog Administration
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Upload images for your blog articles
-          </p>
+          <p className="text-gray-600 dark:text-gray-400">Upload images for your blog articles</p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
@@ -26,7 +24,7 @@ export default function AdminPage() {
           <p className="text-gray-600 dark:text-gray-400 mb-6">
             Upload images to Cloudinary and get Markdown code to paste into your articles.
           </p>
-          
+
           <ImageUploader className="w-full" />
         </div>
 

@@ -20,17 +20,22 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
   useEffect(() => {
     // Wait for DOM to be ready and then find actual heading elements
     const timer = setTimeout(() => {
-      const actualHeadings = document.querySelectorAll('.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6');
+      const actualHeadings = document.querySelectorAll(
+        '.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6',
+      );
 
       const extractedHeadings: Heading[] = Array.from(actualHeadings).map((heading, index) => {
         const level = parseInt(heading.tagName.charAt(1));
         const text = heading.textContent || '';
 
         // Create ID from text or use existing ID
-        let id = heading.id || text.toLowerCase()
-          .replace(/[^\w\s-]/g, '') // Remove special characters
-          .replace(/\s+/g, '-') // Replace spaces with hyphens
-          .trim();
+        let id =
+          heading.id ||
+          text
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, '') // Remove special characters
+            .replace(/\s+/g, '-') // Replace spaces with hyphens
+            .trim();
 
         // Ensure unique IDs
         if (!id) {
@@ -60,7 +65,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
           {
             rootMargin: '-20% 0px -70% 0px',
             threshold: 0,
-          }
+          },
         );
 
         // Observe all heading elements

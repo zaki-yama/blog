@@ -50,22 +50,24 @@ export default async function Post({ params }: { params: Promise<{ id: string }>
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: articleJsonLd }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: breadcrumbJsonLd }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLd }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbJsonLd }} />
       <main className="w-full pt-24 pb-16 px-8">
         {/* Container - same structure as reference site */}
         <div className="max-w-[896px] mx-auto relative">
           {/* Article content */}
           <article className="w-full relative z-10">
-            <Link href="/" className="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 mb-8 inline-flex items-center gap-2 text-sm transition-colors">
+            <Link
+              href="/"
+              className="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 mb-8 inline-flex items-center gap-2 text-sm transition-colors"
+            >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                />
               </svg>
               Back
             </Link>

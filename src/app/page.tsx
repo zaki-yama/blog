@@ -17,22 +17,12 @@ export default async function Home() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: websiteJsonLd }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: organizationJsonLd }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: websiteJsonLd }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: organizationJsonLd }} />
       <div className="mx-auto px-8 py-12 max-w-[896px]">
         <header className="mb-12">
           <div className="flex items-center gap-5">
-            <img
-              src="/logo.png"
-              alt="zaki-yama.dev"
-              className="w-16 h-16 rounded-full"
-            />
+            <img src="/logo.png" alt="zaki-yama.dev" className="w-16 h-16 rounded-full" />
             <div>
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
                 zaki-yama.dev
@@ -45,7 +35,9 @@ export default async function Home() {
           <div className="space-y-0">
             {allPostsData.map(({ id, date, title, category }, index) => (
               <Link key={id} href={`/posts/${id}`} className="group block">
-                <article className={`grid grid-cols-[100px_1fr] gap-6 py-4 ${index !== 0 ? 'border-t border-gray-100 dark:border-gray-800' : ''}`}>
+                <article
+                  className={`grid grid-cols-[100px_1fr] gap-6 py-4 ${index !== 0 ? 'border-t border-gray-100 dark:border-gray-800' : ''}`}
+                >
                   <div className="text-sm text-gray-400 dark:text-gray-500 pt-0.5 font-mono">
                     {date}
                   </div>
