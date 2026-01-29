@@ -80,7 +80,7 @@ description: 'Article description'
 
 - All conversations with the user should be conducted in Japanese
 - Code comments, commit messages, and issues should be written in English
-- Documents under `docs/` directory should be written in Japanese (except ADRs which should be in English)
+- Documents under `docs/` directory should be written in Japanese
 - Daily Work Logs (`docs/YYYY-MM-DD-{topic}.md`) should be written in Japanese
 - This ensures accessibility for both Japanese and international developers
 
