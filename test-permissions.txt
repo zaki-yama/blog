@@ -1,0 +1,4 @@
+This is a test file to verify GitHub Actions permissions.
+Created at: 2026-01-29
+
+This file should trigger a push failure due to insufficient write permissions.
