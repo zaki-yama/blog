@@ -17,110 +17,161 @@ export async function GET(request: NextRequest) {
           height: '100%',
           width: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#1f2937', // dark gray
-          backgroundImage: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           position: 'relative',
+          backgroundColor: '#0f1419',
         }}
       >
-        {/* Subtle overlay for better text readability */}
+        {/* Shoebill Blue Border Frame */}
         <div
           style={{
             position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0, 0, 0, 0.1)',
+            inset: '0',
+            border: '12px solid #8BA5B0',
+            pointerEvents: 'none',
           }}
         />
 
-        {/* Content Container */}
+        {/* Subtle geometric background pattern */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: '0',
+            background: 'radial-gradient(circle at 20% 80%, rgba(139, 165, 176, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(139, 165, 176, 0.06) 0%, transparent 50%)',
+          }}
+        />
+
+        {/* Main content area */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
-            maxWidth: '900px',
-            padding: '80px 60px',
+            width: '100%',
+            height: '100%',
+            padding: '80px',
             position: 'relative',
-            zIndex: 1,
           }}
         >
-          {/* Category Badge */}
+          {/* Category badge in top-right */}
           {category && (
             <div
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                color: 'white',
-                padding: '8px 20px',
-                borderRadius: '20px',
-                fontSize: '18px',
-                fontWeight: '500',
-                marginBottom: '20px',
-                fontFamily:
-                  'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
+                position: 'absolute',
+                top: '80px',
+                right: '80px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
               }}
             >
-              {category}
+              <div
+                style={{
+                  width: '6px',
+                  height: '6px',
+                  backgroundColor: '#8BA5B0',
+                  borderRadius: '50%',
+                }}
+              />
+              <div
+                style={{
+                  fontSize: '20px',
+                  fontWeight: '500',
+                  color: '#8BA5B0',
+                  letterSpacing: '0.5px',
+                  fontFamily: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {category}
+              </div>
             </div>
           )}
 
-          {/* Main Title */}
+          {/* Title - centered vertically with improved Japanese typography */}
           <div
             style={{
-              fontSize: title.length > 50 ? '48px' : '60px',
-              fontWeight: '800',
-              color: 'white',
-              lineHeight: '1.3',
-              marginBottom: '30px',
-              textShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
-              fontFamily:
-                'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-              textAlign: 'center',
-              maxWidth: '800px',
-              // 日本語の改行制御
-              wordBreak: 'keep-all', // 単語の途中で改行しない
-              overflowWrap: 'anywhere', // 必要に応じて改行
-              lineBreak: 'strict', // 厳密な改行ルール
-              hangingPunctuation: 'allow-end', // 句読点のぶら下がりを許可
+              display: 'flex',
+              flex: '1',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              paddingRight: '100px',
             }}
           >
-            {title}
+            <div
+              style={{
+                fontSize: title.length > 60 ? '52px' : title.length > 40 ? '64px' : '72px',
+                fontWeight: '700',
+                color: '#ffffff',
+                lineHeight: '1.25',
+                letterSpacing: '-0.02em',
+                fontFamily: '"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", YuGothic, "Meiryo", sans-serif',
+                // Advanced Japanese line breaking
+                wordBreak: 'normal',
+                overflowWrap: 'break-word',
+                lineBreak: 'strict',
+                wordSpacing: '0.05em',
+              }}
+            >
+              {title}
+            </div>
           </div>
 
-          {/* Blog Name */}
+          {/* Bottom-left: Logo + Blog name */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              fontSize: '28px',
-              color: 'rgba(255, 255, 255, 0.9)',
-              fontWeight: '600',
-              fontFamily:
-                'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
+              gap: '16px',
             }}
           >
-            <span style={{ marginRight: '12px' }}>&lt;/&gt;</span>
-            zaki-yama&apos;s blog
+            {/* Logo placeholder - using geometric shape since we can't load images in ImageResponse */}
+            <div
+              style={{
+                width: '48px',
+                height: '48px',
+                backgroundColor: '#8BA5B0',
+                borderRadius: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '28px',
+              }}
+            >
+              🐦
+            </div>
+
+            {/* Blog name */}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '2px',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: '28px',
+                  fontWeight: '600',
+                  color: '#ffffff',
+                  letterSpacing: '-0.01em',
+                  fontFamily: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+                }}
+              >
+                zaki-yama.dev
+              </div>
+              <div
+                style={{
+                  fontSize: '14px',
+                  fontWeight: '400',
+                  color: '#8BA5B0',
+                  letterSpacing: '0.5px',
+                  fontFamily: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+                }}
+              >
+                Technical Blog
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Bottom Decoration */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '0',
-            left: '0',
-            right: '0',
-            height: '8px',
-            background: 'linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7)',
-          }}
-        />
       </div>,
       {
         width: 1200,
