@@ -11,11 +11,7 @@ export async function GET(request: NextRequest) {
     const title = searchParams.get('title') || "zaki-yama's blog";
     const category = searchParams.get('category') || '';
 
-    // Fetch external logo image
     const logoUrl = 'https://blog.zaki-yama.dev/logo.png';
-    const logoImageData = await fetch(logoUrl).then((res) => res.arrayBuffer());
-    const logoBase64 = Buffer.from(logoImageData).toString('base64');
-    const logoDataUri = `data:image/png;base64,${logoBase64}`;
 
     return new ImageResponse(
       <div
@@ -210,7 +206,7 @@ export async function GET(request: NextRequest) {
 
                 {/* Logo image */}
                 <img
-                  src={logoDataUri}
+                  src={logoUrl}
                   alt="Logo"
                   width="64"
                   height="64"
