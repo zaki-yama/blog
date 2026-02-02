@@ -11,6 +11,12 @@ export async function GET(request: NextRequest) {
     const title = searchParams.get('title') || "zaki-yama's blog";
     const category = searchParams.get('category') || '';
 
+    // Fetch external logo image
+    const logoUrl = 'https://blog.zaki-yama.dev/logo.png';
+    const logoImageData = await fetch(logoUrl).then((res) => res.arrayBuffer());
+    const logoBase64 = Buffer.from(logoImageData).toString('base64');
+    const logoDataUri = `data:image/png;base64,${logoBase64}`;
+
     return new ImageResponse(
       <div
         style={{
@@ -165,40 +171,53 @@ export async function GET(request: NextRequest) {
                 }}
               />
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span
+                    style={{
+                      fontSize: '18px',
+                      color: '#4ade80',
+                    }}
+                  >
+                    $
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '22px',
+                      fontWeight: '600',
+                      color: '#60a5fa',
+                    }}
+                  >
+                    zaki-yama.dev
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '18px',
+                      color: '#6b7280',
+                    }}
+                  >
+                    /
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '18px',
+                      color: '#9ca3af',
+                    }}
+                  >
+                    Technical Blog
+                  </span>
+                </div>
+
+                {/* Logo image */}
+                <img
+                  src={logoDataUri}
+                  alt="Logo"
+                  width="64"
+                  height="64"
                   style={{
-                    fontSize: '18px',
-                    color: '#4ade80',
+                    borderRadius: '8px',
                   }}
-                >
-                  $
-                </span>
-                <span
-                  style={{
-                    fontSize: '22px',
-                    fontWeight: '600',
-                    color: '#60a5fa',
-                  }}
-                >
-                  zaki-yama.dev
-                </span>
-                <span
-                  style={{
-                    fontSize: '18px',
-                    color: '#6b7280',
-                  }}
-                >
-                  /
-                </span>
-                <span
-                  style={{
-                    fontSize: '18px',
-                    color: '#9ca3af',
-                  }}
-                >
-                  Technical Blog
-                </span>
+                />
               </div>
             </div>
           </div>
