@@ -11,116 +11,213 @@ export async function GET(request: NextRequest) {
     const title = searchParams.get('title') || "zaki-yama's blog";
     const category = searchParams.get('category') || '';
 
+    const logoUrl = 'https://blog.zaki-yama.dev/logo.png';
+
     return new ImageResponse(
       <div
         style={{
           height: '100%',
           width: '100%',
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#1f2937', // dark gray
-          backgroundImage: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          position: 'relative',
+          backgroundColor: '#0a0e14',
+          padding: '40px',
         }}
       >
-        {/* Subtle overlay for better text readability */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0, 0, 0, 0.1)',
-          }}
-        />
-
-        {/* Content Container */}
+        {/* Terminal window */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
-            maxWidth: '900px',
-            padding: '80px 60px',
-            position: 'relative',
-            zIndex: 1,
+            width: '100%',
+            height: '100%',
+            backgroundColor: '#1a1d23',
+            borderRadius: '12px',
+            border: '1px solid #2d3139',
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.5)',
+            overflow: 'hidden',
           }}
         >
-          {/* Category Badge */}
-          {category && (
-            <div
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                color: 'white',
-                padding: '8px 20px',
-                borderRadius: '20px',
-                fontSize: '18px',
-                fontWeight: '500',
-                marginBottom: '20px',
-                fontFamily:
-                  'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
-              }}
-            >
-              {category}
-            </div>
-          )}
-
-          {/* Main Title */}
-          <div
-            style={{
-              fontSize: title.length > 50 ? '48px' : '60px',
-              fontWeight: '800',
-              color: 'white',
-              lineHeight: '1.3',
-              marginBottom: '30px',
-              textShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
-              fontFamily:
-                'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-              textAlign: 'center',
-              maxWidth: '800px',
-              // 日本語の改行制御
-              wordBreak: 'keep-all', // 単語の途中で改行しない
-              overflowWrap: 'anywhere', // 必要に応じて改行
-              lineBreak: 'strict', // 厳密な改行ルール
-              hangingPunctuation: 'allow-end', // 句読点のぶら下がりを許可
-            }}
-          >
-            {title}
-          </div>
-
-          {/* Blog Name */}
+          {/* Terminal header - window chrome */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              fontSize: '28px',
-              color: 'rgba(255, 255, 255, 0.9)',
-              fontWeight: '600',
-              fontFamily:
-                'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
+              justifyContent: 'space-between',
+              padding: '16px 24px',
+              backgroundColor: '#16181d',
+              borderBottom: '1px solid #2d3139',
             }}
           >
-            <span style={{ marginRight: '12px' }}>&lt;/&gt;</span>
-            zaki-yama&apos;s blog
+            {/* Window controls */}
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <div
+                style={{
+                  width: '12px',
+                  height: '12px',
+                  borderRadius: '50%',
+                  backgroundColor: '#ff5f56',
+                }}
+              />
+              <div
+                style={{
+                  width: '12px',
+                  height: '12px',
+                  borderRadius: '50%',
+                  backgroundColor: '#ffbd2e',
+                }}
+              />
+              <div
+                style={{
+                  width: '12px',
+                  height: '12px',
+                  borderRadius: '50%',
+                  backgroundColor: '#27c93f',
+                }}
+              />
+            </div>
+
+            {/* Terminal title */}
+            <div
+              style={{
+                fontSize: '14px',
+                color: '#6b7280',
+                fontFamily: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+              }}
+            >
+              zaki-yama@blog ~ zsh
+            </div>
+
+            <div style={{ width: '60px' }} />
+          </div>
+
+          {/* Terminal content */}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              flex: '1',
+              padding: '40px',
+              fontFamily: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+            }}
+          >
+            {/* Command prompt with category */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
+              {category && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span
+                    style={{
+                      fontSize: '18px',
+                      color: '#4ade80',
+                    }}
+                  >
+                    $
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '18px',
+                      color: '#60a5fa',
+                    }}
+                  >
+                    cat
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '18px',
+                      color: '#e5e7eb',
+                    }}
+                  >
+                    {category}.md
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Title output */}
+            <div
+              style={{
+                display: 'flex',
+                flex: '1',
+                alignItems: 'center',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: title.length > 60 ? '48px' : title.length > 40 ? '56px' : '64px',
+                  fontWeight: '700',
+                  color: '#e5e7eb',
+                  lineHeight: '1.3',
+                  letterSpacing: '-0.02em',
+                  fontFamily: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+                  wordBreak: 'keep-all',
+                }}
+              >
+                {title}
+              </div>
+            </div>
+
+            {/* Bottom prompt - blog info */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '32px' }}>
+              <div
+                style={{
+                  height: '1px',
+                  backgroundColor: '#2d3139',
+                  marginBottom: '8px',
+                }}
+              />
+
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span
+                    style={{
+                      fontSize: '18px',
+                      color: '#4ade80',
+                    }}
+                  >
+                    $
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '22px',
+                      fontWeight: '600',
+                      color: '#60a5fa',
+                    }}
+                  >
+                    zaki-yama.dev
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '18px',
+                      color: '#6b7280',
+                    }}
+                  >
+                    /
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '18px',
+                      color: '#9ca3af',
+                    }}
+                  >
+                    Technical Blog
+                  </span>
+                </div>
+
+                {/* Logo image */}
+                <img
+                  src={logoUrl}
+                  alt="Logo"
+                  width="64"
+                  height="64"
+                  style={{
+                    borderRadius: '8px',
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Bottom Decoration */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '0',
-            left: '0',
-            right: '0',
-            height: '8px',
-            background: 'linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7)',
-          }}
-        />
       </div>,
       {
         width: 1200,
