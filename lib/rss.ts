@@ -54,14 +54,16 @@ export function generateRSSFeed(items: RSSItem[], config: RSSConfig): string {
 </rss>`.trim();
 }
 
+import { SITE_CONFIG, getBaseUrl } from './site-config';
+
 export function getRSSConfig(): RSSConfig {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  
+  const baseUrl = getBaseUrl();
+
   return {
-    title: 'Technical Blog',
-    description: 'A blog for sharing programming knowledge and learning experiences',
+    title: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
     siteUrl: baseUrl,
     language: 'ja',
-    author: 'zaki-yama',
+    author: SITE_CONFIG.author.name,
   };
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { SITE_CONFIG } from '../../lib/site-config';
 
 export default function Header() {
   const [darkMode, setDarkMode] = useState(false);
@@ -41,7 +42,7 @@ export default function Header() {
             href="/"
             className="text-base font-medium text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
           >
-            zaki-yama.dev
+            {SITE_CONFIG.name}
           </Link>
 
           <nav className="flex items-center space-x-4">

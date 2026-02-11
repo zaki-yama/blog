@@ -1,16 +1,17 @@
 import Link from 'next/link';
 import { getSortedPostsData } from '../../lib/posts';
 import { generateWebSiteJsonLd, generateOrganizationJsonLd } from '../../lib/structured-data';
+import { SITE_CONFIG, getBaseUrl } from '../../lib/site-config';
 
 export default async function Home() {
   const allPostsData = await getSortedPostsData();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const baseUrl = getBaseUrl();
 
   const websiteJsonLd = generateWebSiteJsonLd({
-    name: 'Technical Blog',
-    description: 'A blog for sharing programming knowledge and learning experiences',
+    name: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
     url: baseUrl,
-    author: 'zaki-yama',
+    author: SITE_CONFIG.author.name,
   });
 
   const organizationJsonLd = generateOrganizationJsonLd(baseUrl);
@@ -22,10 +23,10 @@ export default async function Home() {
       <div className="mx-auto px-8 py-12 max-w-[896px]">
         <header className="mb-12">
           <div className="flex items-center gap-5">
-            <img src="/logo.png" alt="zaki-yama.dev" className="w-16 h-16 rounded-full" />
+            <img src="/logo.png" alt={SITE_CONFIG.name} className="w-16 h-16 rounded-full" />
             <div>
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                zaki-yama.dev
+                {SITE_CONFIG.name}
               </h1>
             </div>
           </div>

@@ -1,3 +1,5 @@
+import { SITE_CONFIG } from './site-config';
+
 interface ArticleStructuredData {
   title: string;
   description: string;
@@ -28,7 +30,7 @@ export function generateArticleJsonLd(data: ArticleStructuredData) {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Technical Blog',
+      name: SITE_CONFIG.name,
       logo: {
         '@type': 'ImageObject',
         url: `${data.url.split('/posts')[0]}/favicon.ico`,
@@ -106,7 +108,7 @@ export function generateOrganizationJsonLd(baseUrl: string) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Technical Blog',
+    name: SITE_CONFIG.name,
     url: baseUrl,
     logo: `${baseUrl}/favicon.ico`,
     sameAs: [

@@ -1,3 +1,5 @@
+import { getBaseUrl } from './site-config';
+
 interface SitemapUrl {
   loc: string;
   lastmod: string;
@@ -29,6 +31,6 @@ export function formatDateForSitemap(date: string): string {
 
 export function getSitemapConfig() {
   return {
-    baseUrl: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+    baseUrl: getBaseUrl(),
   };
 }

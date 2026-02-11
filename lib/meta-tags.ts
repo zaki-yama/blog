@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { SITE_CONFIG, getBaseUrl } from './site-config';
 
 interface ArticleMetadata {
   title: string;
@@ -19,7 +20,7 @@ interface SiteMetadata {
 }
 
 export function generateArticleMetadata(data: ArticleMetadata): Metadata {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const baseUrl = getBaseUrl();
 
   // Handle category as string or array
   const categoryString = Array.isArray(data.category) ? data.category.join(',') : data.category;
@@ -41,7 +42,7 @@ export function generateArticleMetadata(data: ArticleMetadata): Metadata {
       title: data.title,
       description: data.description,
       url: data.url,
-      siteName: 'Technical Blog',
+      siteName: SITE_CONFIG.name,
       publishedTime: data.publishedTime,
       modifiedTime: data.modifiedTime || data.publishedTime,
       authors: [data.author],
@@ -61,12 +62,12 @@ export function generateArticleMetadata(data: ArticleMetadata): Metadata {
       title: data.title,
       description: data.description,
       images: [image],
-      creator: '@zaki_yama',
-      site: '@zaki_yama',
+      creator: SITE_CONFIG.author.twitter,
+      site: SITE_CONFIG.author.twitter,
     },
     authors: [{ name: data.author }],
     category: categoryString,
-    keywords: [...categoryArray, 'プログラミング', '技術ブログ', 'エンジニア'],
+    keywords: [...categoryArray, ...SITE_CONFIG.keywords],
     robots: {
       index: true,
       follow: true,
@@ -82,7 +83,7 @@ export function generateArticleMetadata(data: ArticleMetadata): Metadata {
 }
 
 export function generateSiteMetadata(data: SiteMetadata): Metadata {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const baseUrl = getBaseUrl();
   
   // Generate dynamic OG image URL for site
   const ogImageUrl = new URL(`${baseUrl}/api/og`);
@@ -126,13 +127,13 @@ export function generateSiteMetadata(data: SiteMetadata): Metadata {
       title: data.title,
       description: data.description,
       images: [image],
-      creator: '@zaki_yama',
-      site: '@zaki_yama',
+      creator: SITE_CONFIG.author.twitter,
+      site: SITE_CONFIG.author.twitter,
     },
-    keywords: ['プログラミング', '技術ブログ', 'エンジニア', 'Web開発', 'JavaScript', 'TypeScript'],
-    authors: [{ name: 'zaki-yama' }],
-    creator: 'zaki-yama',
-    publisher: 'zaki-yama',
+    keywords: SITE_CONFIG.keywords,
+    authors: [{ name: SITE_CONFIG.author.name }],
+    creator: SITE_CONFIG.author.name,
+    publisher: SITE_CONFIG.author.name,
     robots: {
       index: true,
       follow: true,
