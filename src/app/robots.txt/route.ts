@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
+import { getBaseUrl } from '../../../lib/site-config';
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const baseUrl = getBaseUrl();
 
   const robotsTxt = `User-agent: *
 Allow: /

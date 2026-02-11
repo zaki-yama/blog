@@ -4,6 +4,7 @@ import SocialShareButtons from '../../../components/SocialShareButtons';
 import TableOfContents from '../../../components/TableOfContents';
 import { generateArticleJsonLd, generateBreadcrumbJsonLd } from '../../../../lib/structured-data';
 import { generateArticleMetadata } from '../../../../lib/meta-tags';
+import { SITE_CONFIG, getBaseUrl } from '../../../../lib/site-config';
 
 export async function generateStaticParams() {
   const paths = getAllPostIds();
@@ -15,7 +16,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const postData = await getPostData(id);
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const baseUrl = getBaseUrl();
   const currentUrl = `${baseUrl}/posts/${id}`;
 
   return generateArticleMetadata({
@@ -24,20 +25,20 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     url: currentUrl,
     publishedTime: postData.date,
     category: postData.category,
-    author: 'zaki-yama',
+    author: SITE_CONFIG.author.name,
   });
 }
 
 export default async function Post({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const postData = await getPostData(id);
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const baseUrl = getBaseUrl();
   const currentUrl = `${baseUrl}/posts/${id}`;
 
   const articleJsonLd = generateArticleJsonLd({
     title: postData.title,
     description: postData.description || postData.title,
-    author: 'zaki-yama',
+    author: SITE_CONFIG.author.name,
     datePublished: postData.date,
     category: postData.category,
     url: currentUrl,

@@ -4,6 +4,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 import Header from '../components/Header';
 import { generateSiteMetadata } from '../../lib/meta-tags';
+import { SITE_CONFIG, getBaseUrl } from '../../lib/site-config';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -15,12 +16,10 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-
 export const metadata: Metadata = generateSiteMetadata({
-  title: "zaki-yama's blog",
-  description: 'A blog for sharing programming knowledge and learning experiences',
-  url: baseUrl,
+  title: SITE_CONFIG.title,
+  description: SITE_CONFIG.description,
+  url: getBaseUrl(),
 });
 
 export default function RootLayout({

@@ -1,16 +1,17 @@
 import Link from 'next/link';
 import { getSortedPostsData } from '../../lib/posts';
 import { generateWebSiteJsonLd, generateOrganizationJsonLd } from '../../lib/structured-data';
+import { SITE_CONFIG, getBaseUrl } from '../../lib/site-config';
 
 export default async function Home() {
   const allPostsData = await getSortedPostsData();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const baseUrl = getBaseUrl();
 
   const websiteJsonLd = generateWebSiteJsonLd({
-    name: 'Technical Blog',
-    description: 'A blog for sharing programming knowledge and learning experiences',
+    name: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
     url: baseUrl,
-    author: 'zaki-yama',
+    author: SITE_CONFIG.author.name,
   });
 
   const organizationJsonLd = generateOrganizationJsonLd(baseUrl);

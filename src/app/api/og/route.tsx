@@ -1,5 +1,6 @@
 import { ImageResponse } from '@vercel/og';
 import { NextRequest } from 'next/server';
+import { SITE_CONFIG } from '../../../../lib/site-config';
 
 // export const runtime = 'edge'; // Disabled due to WASM compatibility issues
 
@@ -12,7 +13,7 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category') || '';
     const categories = category ? category.split(',').map(c => c.trim()) : [];
 
-    const logoUrl = 'https://blog.zaki-yama.dev/logo.png';
+    const logoUrl = SITE_CONFIG.url.logo;
 
     return new ImageResponse(
       <div
