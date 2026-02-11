@@ -23,10 +23,10 @@ export default async function Home() {
       <div className="mx-auto px-8 py-12 max-w-[896px]">
         <header className="mb-12">
           <div className="flex items-center gap-5">
-            <img src="/logo.png" alt="zaki-yama.dev" className="w-16 h-16 rounded-full" />
+            <img src="/logo.png" alt={SITE_CONFIG.name} className="w-16 h-16 rounded-full" />
             <div>
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                zaki-yama.dev
+                {SITE_CONFIG.name}
               </h1>
             </div>
           </div>

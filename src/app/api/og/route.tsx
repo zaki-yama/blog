@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     // Get parameters from URL
-    const title = searchParams.get('title') || "zaki-yama's blog";
+    const title = searchParams.get('title') || SITE_CONFIG.name;
     const category = searchParams.get('category') || '';
     const categories = category ? category.split(',').map(c => c.trim()) : [];
 

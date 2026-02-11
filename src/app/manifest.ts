@@ -1,10 +1,11 @@
 import { MetadataRoute } from 'next';
+import { SITE_CONFIG } from '../../lib/site-config';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "zaki-yama's blog",
-    short_name: 'zaki-yama',
-    description: 'A blog for sharing programming knowledge and learning experiences',
+    name: SITE_CONFIG.name,
+    short_name: SITE_CONFIG.name,
+    description: SITE_CONFIG.description,
     start_url: '/',
     display: 'standalone',
     theme_color: '#a8cf45',

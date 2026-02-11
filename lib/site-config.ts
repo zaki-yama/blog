@@ -6,7 +6,6 @@
 export const SITE_CONFIG = {
   // Site information
   name: 'zaki-yama.dev',
-  title: "zaki-yama's blog",
   description: 'A blog for sharing programming knowledge and learning experiences',
 
   // Author information

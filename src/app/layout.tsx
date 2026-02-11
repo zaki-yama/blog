@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = generateSiteMetadata({
-  title: SITE_CONFIG.title,
+  title: SITE_CONFIG.name,
   description: SITE_CONFIG.description,
   url: getBaseUrl(),
 });
