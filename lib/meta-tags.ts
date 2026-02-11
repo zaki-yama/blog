@@ -6,7 +6,7 @@ interface ArticleMetadata {
   url: string;
   publishedTime: string;
   modifiedTime?: string;
-  category: string;
+  category: string | string[];
   author: string;
   image?: string;
 }
@@ -20,13 +20,17 @@ interface SiteMetadata {
 
 export function generateArticleMetadata(data: ArticleMetadata): Metadata {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  
+
+  // Handle category as string or array
+  const categoryString = Array.isArray(data.category) ? data.category.join(',') : data.category;
+  const categoryArray = Array.isArray(data.category) ? data.category : [data.category];
+
   // Generate dynamic OG image URL
   const ogImageUrl = new URL(`${baseUrl}/api/og`);
   ogImageUrl.searchParams.set('title', data.title);
-  ogImageUrl.searchParams.set('category', data.category);
+  ogImageUrl.searchParams.set('category', categoryString);
   ogImageUrl.searchParams.set('type', 'article');
-  
+
   const image = data.image || ogImageUrl.toString();
 
   return {
@@ -41,7 +45,7 @@ export function generateArticleMetadata(data: ArticleMetadata): Metadata {
       publishedTime: data.publishedTime,
       modifiedTime: data.modifiedTime || data.publishedTime,
       authors: [data.author],
-      tags: [data.category],
+      tags: categoryArray,
       images: [
         {
           url: image,
@@ -61,8 +65,8 @@ export function generateArticleMetadata(data: ArticleMetadata): Metadata {
       site: '@zaki_yama',
     },
     authors: [{ name: data.author }],
-    category: data.category,
-    keywords: [data.category, 'プログラミング', '技術ブログ', 'エンジニア'],
+    category: categoryString,
+    keywords: [...categoryArray, 'プログラミング', '技術ブログ', 'エンジニア'],
     robots: {
       index: true,
       follow: true,

@@ -10,6 +10,7 @@ export async function GET(request: NextRequest) {
     // Get parameters from URL
     const title = searchParams.get('title') || "zaki-yama's blog";
     const category = searchParams.get('category') || '';
+    const categories = category ? category.split(',').map(c => c.trim()) : [];
 
     const logoUrl = 'https://blog.zaki-yama.dev/logo.png';
 
@@ -86,7 +87,6 @@ export async function GET(request: NextRequest) {
                 fontFamily: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
               }}
             >
-              zaki-yama@blog ~ zsh
             </div>
 
             <div style={{ width: '60px' }} />
@@ -102,37 +102,35 @@ export async function GET(request: NextRequest) {
               fontFamily: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
             }}
           >
-            {/* Command prompt with category */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
-              {category && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span
+            {/* Category badges */}
+            {categories.length > 0 && (
+              <div style={{ display: 'flex', gap: '12px', marginBottom: '32px', flexWrap: 'wrap' }}>
+                {categories.map((cat, index) => (
+                  <div
+                    key={index}
                     style={{
-                      fontSize: '18px',
-                      color: '#4ade80',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      backgroundColor: 'rgba(147, 197, 253, 0.15)',
+                      padding: '8px 16px',
+                      borderRadius: '16px',
+                      border: '1px solid rgba(147, 197, 253, 0.3)',
                     }}
                   >
-                    $
-                  </span>
-                  <span
-                    style={{
-                      fontSize: '18px',
-                      color: '#60a5fa',
-                    }}
-                  >
-                    cat
-                  </span>
-                  <span
-                    style={{
-                      fontSize: '18px',
-                      color: '#e5e7eb',
-                    }}
-                  >
-                    {category}.md
-                  </span>
-                </div>
-              )}
-            </div>
+                    <span
+                      style={{
+                        fontSize: '18px',
+                        color: '#93c5fd',
+                        fontWeight: '500',
+                      }}
+                    >
+                      {cat}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Title output */}
             <div
@@ -140,6 +138,7 @@ export async function GET(request: NextRequest) {
                 display: 'flex',
                 flex: '1',
                 alignItems: 'center',
+                paddingRight: categories.length > 0 ? '100px' : '0',
               }}
             >
               <div
@@ -172,7 +171,7 @@ export async function GET(request: NextRequest) {
                   <span
                     style={{
                       fontSize: '18px',
-                      color: '#4ade80',
+                      color: '#6ee7b7',
                     }}
                   >
                     $
@@ -181,26 +180,10 @@ export async function GET(request: NextRequest) {
                     style={{
                       fontSize: '22px',
                       fontWeight: '600',
-                      color: '#60a5fa',
+                      color: '#93c5fd',
                     }}
                   >
                     zaki-yama.dev
-                  </span>
-                  <span
-                    style={{
-                      fontSize: '18px',
-                      color: '#6b7280',
-                    }}
-                  >
-                    /
-                  </span>
-                  <span
-                    style={{
-                      fontSize: '18px',
-                      color: '#9ca3af',
-                    }}
-                  >
-                    Technical Blog
                   </span>
                 </div>
 
