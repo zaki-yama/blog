@@ -1,8 +1,8 @@
 import { ImageResponse } from '@vercel/og';
-import { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 import { SITE_CONFIG } from '../../../../lib/site-config';
 
-// export const runtime = 'edge'; // Disabled due to WASM compatibility issues
+// Export const runtime = 'edge'; // Disabled due to WASM compatibility issues
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     // Get parameters from URL
     const title = searchParams.get('title') || SITE_CONFIG.name;
     const category = searchParams.get('category') || '';
-    const categories = category ? category.split(',').map(c => c.trim()) : [];
+    const categories = category ? category.split(',').map((c) => c.trim()) : [];
 
     const logoUrl = SITE_CONFIG.url.logo;
 
@@ -85,10 +85,10 @@ export async function GET(request: NextRequest) {
               style={{
                 fontSize: '14px',
                 color: '#6b7280',
-                fontFamily: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+                fontFamily:
+                  '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
               }}
-            >
-            </div>
+            />
 
             <div style={{ width: '60px' }} />
           </div>
@@ -100,7 +100,8 @@ export async function GET(request: NextRequest) {
               flexDirection: 'column',
               flex: '1',
               padding: '40px',
-              fontFamily: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+              fontFamily:
+                '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
             }}
           >
             {/* Category badges */}
@@ -144,13 +145,15 @@ export async function GET(request: NextRequest) {
             >
               <div
                 style={{
-                  fontSize: title.length > 60 ? '48px' : title.length > 40 ? '56px' : '64px',
+                  fontSize: title.length > 60 ? '42px' : title.length > 40 ? '48px' : '54px',
                   fontWeight: '700',
                   color: '#e5e7eb',
                   lineHeight: '1.3',
                   letterSpacing: '-0.02em',
-                  fontFamily: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
-                  wordBreak: 'keep-all',
+                  fontFamily:
+                    '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+                  wordBreak: 'normal',
+                  overflowWrap: 'break-word',
                 }}
               >
                 {title}
@@ -158,7 +161,9 @@ export async function GET(request: NextRequest) {
             </div>
 
             {/* Bottom prompt - blog info */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '32px' }}>
+            <div
+              style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '32px' }}
+            >
               <div
                 style={{
                   height: '1px',
@@ -167,7 +172,9 @@ export async function GET(request: NextRequest) {
                 }}
               />
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div
+                style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}
+              >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <span
                     style={{
@@ -184,7 +191,7 @@ export async function GET(request: NextRequest) {
                       color: '#93c5fd',
                     }}
                   >
-                    zaki-yama.dev
+                    {SITE_CONFIG.name}
                   </span>
                 </div>
 
@@ -192,8 +199,8 @@ export async function GET(request: NextRequest) {
                 <img
                   src={logoUrl}
                   alt="Logo"
-                  width="64"
-                  height="64"
+                  width="128"
+                  height="128"
                   style={{
                     borderRadius: '8px',
                   }}
@@ -208,8 +215,8 @@ export async function GET(request: NextRequest) {
         height: 630,
       },
     );
-  } catch (e: unknown) {
-    console.log(`Failed to generate the image`, e);
+  } catch (error: unknown) {
+    console.log(`Failed to generate the image`, error);
     return new Response(`Failed to generate the image`, {
       status: 500,
     });
