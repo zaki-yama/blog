@@ -24,7 +24,7 @@ export default function TableOfContents({ content }: TableOfContentsProps) {
         '.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6',
       );
 
-      const extractedHeadings: Heading[] = Array.from(actualHeadings).map((heading, index) => {
+      const extractedHeadings: Heading[] = [...actualHeadings].map((heading, index) => {
         const level = parseInt(heading.tagName.charAt(1));
         const text = heading.textContent || '';
 

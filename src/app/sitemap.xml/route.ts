@@ -13,7 +13,7 @@ export async function GET() {
       loc: config.baseUrl,
       lastmod: currentDate,
       changefreq: 'daily' as const,
-      priority: 1.0,
+      priority: 1,
     },
     // Blog posts
     ...posts.map((post) => ({

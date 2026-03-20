@@ -75,9 +75,7 @@ export default function ImageUploader({ onUploadComplete, className = '' }: Imag
     }
   };
 
-  const generateMarkdown = (result: UploadResult) => {
-    return `![Image description](${result.url})`;
-  };
+  const generateMarkdown = (result: UploadResult) => `![Image description](${result.url})`;
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -106,7 +104,7 @@ export default function ImageUploader({ onUploadComplete, className = '' }: Imag
       >
         {uploading ? (
           <div className="space-y-2">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto" />
             <p className="text-gray-600">Uploading...</p>
           </div>
         ) : (

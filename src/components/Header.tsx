@@ -14,11 +14,7 @@ export default function Header() {
     const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
     setDarkMode(isDark);
 
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.toggle('dark', isDark);
   }, []);
 
   const toggleDarkMode = () => {
