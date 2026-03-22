@@ -4,11 +4,11 @@ import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import rehypePrism from 'rehype-prism-plus';
 
-// Static list of post files for Cloudflare Workers compatibility
-const POST_FILES = [
-  'hello-world.md',
-  'getting-started-with-react.md',
-];
+import fs from 'fs';
+import path from 'path';
+
+const postsDirectory = path.join(process.cwd(), 'posts');
+const POST_FILES = fs.readdirSync(postsDirectory).filter((f) => f.endsWith('.md'));
 
 export type PostData = {
   id: string;
