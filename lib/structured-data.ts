@@ -89,7 +89,7 @@ export function generateWebSiteJsonLd(data: WebSiteStructuredData) {
   return JSON.stringify(jsonLd);
 }
 
-export function generateBreadcrumbJsonLd(items: Array<{ name: string; url: string }>) {
+export function generateBreadcrumbJsonLd(items: { name: string; url: string }[]) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -111,9 +111,7 @@ export function generateOrganizationJsonLd(baseUrl: string) {
     name: SITE_CONFIG.name,
     url: baseUrl,
     logo: `${baseUrl}/favicon.ico`,
-    sameAs: [
-      'https://github.com/zaki-yama/blog',
-    ],
+    sameAs: ['https://github.com/zaki-yama/blog'],
   };
 
   return JSON.stringify(jsonLd);

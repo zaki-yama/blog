@@ -16,7 +16,7 @@ interface RSSConfig {
 
 export function generateRSSFeed(items: RSSItem[], config: RSSConfig): string {
   const { title, description, siteUrl, language, author } = config;
-  
+
   const rssItems = items
     .map((item) => {
       const pubDate = new Date(item.date).toUTCString();

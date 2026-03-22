@@ -9,14 +9,14 @@ interface SitemapUrl {
 
 export function generateSitemap(urls: SitemapUrl[]): string {
   const urlElements = urls
-    .map((url) => {
-      return `  <url>
+    .map(
+      (url) => `  <url>
     <loc>${url.loc}</loc>
     <lastmod>${url.lastmod}</lastmod>
     <changefreq>${url.changefreq}</changefreq>
     <priority>${url.priority}</priority>
-  </url>`;
-    })
+  </url>`,
+    )
     .join('\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>

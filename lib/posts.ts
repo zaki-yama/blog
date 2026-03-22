@@ -10,20 +10,20 @@ import path from 'path';
 const postsDirectory = path.join(process.cwd(), 'posts');
 const POST_FILES = fs.readdirSync(postsDirectory).filter((f) => f.endsWith('.md'));
 
-export type PostData = {
+export interface PostData {
   id: string;
   title: string;
   date: string;
   category: string;
   description: string;
   content: string;
-};
+}
 
 export async function getSortedPostsData(): Promise<Omit<PostData, 'content'>[]> {
   const allPostsData = await Promise.all(
     POST_FILES.map(async (fileName) => {
       const id = fileName.replace(/\.md$/, '');
-      const fileContents = await import(`../posts/${fileName}?raw`).then(m => m.default);
+      const fileContents = await import(`../posts/${fileName}?raw`).then((m) => m.default);
       const matterResult = matter(fileContents);
 
       return {
@@ -33,10 +33,10 @@ export async function getSortedPostsData(): Promise<Omit<PostData, 'content'>[]>
         category: matterResult.data.category,
         description: matterResult.data.description,
       };
-    })
+    }),
   );
 
-  return allPostsData.sort((a, b) => {
+  return allPostsData.toSorted((a, b) => {
     if (a.date < b.date) {
       return 1;
     } else {
@@ -46,18 +46,16 @@ export async function getSortedPostsData(): Promise<Omit<PostData, 'content'>[]>
 }
 
 export function getAllPostIds() {
-  return POST_FILES.map((fileName) => {
-    return {
-      params: {
-        id: fileName.replace(/\.md$/, ''),
-      },
-    };
-  });
+  return POST_FILES.map((fileName) => ({
+    params: {
+      id: fileName.replace(/\.md$/, ''),
+    },
+  }));
 }
 
 export async function getPostData(id: string): Promise<PostData> {
   const fileName = `${id}.md`;
-  const fileContents = await import(`../posts/${fileName}?raw`).then(m => m.default);
+  const fileContents = await import(`../posts/${fileName}?raw`).then((m) => m.default);
   const matterResult = matter(fileContents);
 
   const processedContent = await remark()

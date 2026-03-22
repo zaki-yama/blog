@@ -145,7 +145,7 @@ export async function GET(request: NextRequest) {
             >
               <div
                 style={{
-                  fontSize: title.length > 60 ? '42px' : (title.length > 40 ? '48px' : '54px'),
+                  fontSize: title.length > 60 ? '42px' : title.length > 40 ? '48px' : '54px',
                   fontWeight: '700',
                   color: '#e5e7eb',
                   lineHeight: '1.3',

@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { SITE_CONFIG, getBaseUrl } from './site-config';
 
 interface ArticleMetadata {
@@ -84,12 +84,12 @@ export function generateArticleMetadata(data: ArticleMetadata): Metadata {
 
 export function generateSiteMetadata(data: SiteMetadata): Metadata {
   const baseUrl = getBaseUrl();
-  
+
   // Generate dynamic OG image URL for site
   const ogImageUrl = new URL(`${baseUrl}/api/og`);
   ogImageUrl.searchParams.set('title', data.title);
   ogImageUrl.searchParams.set('type', 'site');
-  
+
   const image = data.image || ogImageUrl.toString();
 
   return {
