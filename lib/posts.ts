@@ -4,11 +4,14 @@ import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import rehypePrism from 'rehype-prism-plus';
 
-import fs from 'fs';
 import path from 'path';
 
-const postsDirectory = path.join(process.cwd(), 'posts');
-const POST_FILES = fs.readdirSync(postsDirectory).filter((f) => f.endsWith('.md'));
+// Use webpack's require.context to discover post files at build time.
+// This avoids fs.readdirSync which fails in Cloudflare Workers runtime.
+const postContext = (require as any).context('../posts', false, /\.md$/);
+const POST_FILES = (postContext.keys() as string[]).map((k: string) =>
+  path.basename(k),
+);
 
 export interface PostData {
   id: string;
