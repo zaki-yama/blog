@@ -1,15 +1,9 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "blog",
-	"main": ".open-next/worker.js",
 	"compatibility_date": "2025-03-01",
-	"compatibility_flags": [
-		"nodejs_compat",
-		"global_fetch_strictly_public"
-	],
 	"assets": {
-		"binding": "ASSETS",
-		"directory": ".open-next/assets"
+		"directory": "./dist"
 	},
 	"observability": {
 		"enabled": true
@@ -21,7 +15,7 @@
 		}
 	],
 	"vars": {
-		"NEXT_PUBLIC_SITE_URL": "https://blog.zaki-yama.dev",
-		"NEXT_PUBLIC_GA_ID": "G-WTRHNJ8JBX",
+		"PUBLIC_SITE_URL": "https://blog.zaki-yama.dev",
+		"PUBLIC_GA_ID": "G-WTRHNJ8JBX"
 	}
 }
