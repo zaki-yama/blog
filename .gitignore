@@ -26,6 +26,10 @@ pnpm-debug.log*
 
 # cloudflare
 .wrangler/
+.open-next/
+
+# next.js (legacy build artifacts)
+/.next/
 
 # typescript
 *.tsbuildinfo

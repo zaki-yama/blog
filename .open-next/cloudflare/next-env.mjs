@@ -1,3 +1,0 @@
-export const production = {"NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME":"zaki-yama","CLOUDINARY_API_KEY":"816392873726417","CLOUDINARY_API_SECRET":"j1B2bGYLV1nhqRgA_pCfKtNbRVo"};
-export const development = {"NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME":"zaki-yama","CLOUDINARY_API_KEY":"816392873726417","CLOUDINARY_API_SECRET":"j1B2bGYLV1nhqRgA_pCfKtNbRVo"};
-export const test = {};
