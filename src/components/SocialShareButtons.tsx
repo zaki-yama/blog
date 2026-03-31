@@ -1,5 +1,3 @@
-'use client';
-
 interface SocialShareButtonsProps {
   title: string;
   url: string;
