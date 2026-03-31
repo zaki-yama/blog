@@ -1,0 +1,16 @@
+{
+  "/api/upload/route": "/api/upload",
+  "/robots.txt/route": "/robots.txt",
+  "/apple-icon.png/route": "/apple-icon.png",
+  "/favicon.ico/route": "/favicon.ico",
+  "/manifest.webmanifest/route": "/manifest.webmanifest",
+  "/icon.png/route": "/icon.png",
+  "/rss.xml/route": "/rss.xml",
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/_not-found/page": "/_not-found",
+  "/page": "/",
+  "/admin/page": "/admin",
+  "/og-test/page": "/og-test",
+  "/api/og/route": "/api/og",
+  "/posts/[id]/page": "/posts/[id]"
+}
