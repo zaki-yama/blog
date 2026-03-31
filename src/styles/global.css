@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import 'prism-themes/themes/prism-vsc-dark-plus.css';
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
@@ -80,79 +79,12 @@ body {
   margin-bottom: 1.25rem;
 }
 
-/* Custom adjustments for Prism.js GitHub Colors theme */
-.prose pre[class*='language-'] {
+/* Shiki code block styling */
+.prose pre.astro-code {
   border-radius: 0.5rem;
   margin: 1.5rem 0;
-}
-
-/* Dark mode theme override */
-.dark .prose pre[class*='language-'] {
-  background: #272822;
-}
-
-.dark .prose code[class*='language-'],
-.dark .prose pre[class*='language-'] {
-  color: #f8f8f2;
-}
-
-/* Dark theme tokens */
-.dark .token.comment,
-.dark .token.prolog,
-.dark .token.doctype,
-.dark .token.cdata {
-  color: #75715e;
-}
-
-.dark .token.punctuation {
-  color: #f8f8f2;
-}
-
-.dark .token.property,
-.dark .token.tag,
-.dark .token.constant,
-.dark .token.symbol,
-.dark .token.deleted {
-  color: #f92672;
-}
-
-.dark .token.boolean,
-.dark .token.number {
-  color: #ae81ff;
-}
-
-.dark .token.selector,
-.dark .token.attr-name,
-.dark .token.string,
-.dark .token.char,
-.dark .token.builtin,
-.dark .token.inserted {
-  color: #a6e22e;
-}
-
-.dark .token.operator,
-.dark .token.entity,
-.dark .token.url,
-.dark .language-css .token.string,
-.dark .style .token.string,
-.dark .token.variable {
-  color: #f8f8f2;
-}
-
-.dark .token.atrule,
-.dark .token.attr-value,
-.dark .token.function,
-.dark .token.class-name {
-  color: #e6db74;
-}
-
-.dark .token.keyword {
-  color: #66d9ef;
-}
-
-.dark .token.regex,
-.dark .token.important {
-  color: #fd971f;
+  padding: 1.25rem;
+  overflow-x: auto;
 }
 
 /* Inline code styling */
@@ -169,7 +101,7 @@ body {
   color: #f9fafb;
 }
 
-/* Remove background for code inside pre blocks (handled by Prism) */
+/* Remove background for code inside pre blocks (handled by shiki inline styles) */
 .prose pre code {
   background-color: transparent !important;
   padding: 0;

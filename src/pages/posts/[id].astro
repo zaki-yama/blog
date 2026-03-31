@@ -1,0 +1,103 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SocialShareButtons from '../../components/SocialShareButtons';
+import TableOfContents from '../../components/TableOfContents';
+import { SITE_CONFIG, getBaseUrl } from '../../lib/site-config';
+import { generateArticleJsonLd, generateBreadcrumbJsonLd } from '../../lib/structured-data';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const baseUrl = getBaseUrl();
+const currentUrl = `${baseUrl}/posts/${post.id}`;
+
+const articleJsonLd = generateArticleJsonLd({
+  title: post.data.title,
+  description: post.data.description || post.data.title,
+  author: SITE_CONFIG.author.name,
+  datePublished: post.data.date,
+  category: post.data.category,
+  url: currentUrl,
+});
+
+const breadcrumbJsonLd = generateBreadcrumbJsonLd([
+  { name: 'Home', url: baseUrl },
+  { name: post.data.title, url: currentUrl },
+]);
+
+const ogImageUrl = `${baseUrl}/og/${post.id}.png`;
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description || post.data.title}
+  ogImageUrl={ogImageUrl}
+>
+  <script type="application/ld+json" set:html={articleJsonLd} />
+  <script type="application/ld+json" set:html={breadcrumbJsonLd} />
+
+  <div class="w-full pt-24 pb-16 px-8">
+    <div class="max-w-[896px] mx-auto relative">
+      <article class="w-full relative z-10">
+        <a
+          href="/"
+          class="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 mb-8 inline-flex items-center gap-2 text-sm transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back
+        </a>
+
+        <header class="mb-8">
+          <div
+            class="flex items-center gap-3 text-sm text-gray-400 dark:text-gray-500 mb-4 font-mono"
+          >
+            <time>{post.data.date}</time>
+            <span>·</span>
+            <span>{post.data.category}</span>
+          </div>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white leading-tight">
+            {post.data.title}
+          </h1>
+        </header>
+
+        <div class="prose prose-lg max-w-none">
+          <Content />
+        </div>
+
+        <footer class="mt-12 pt-6 border-t border-gray-100 dark:border-gray-800">
+          <SocialShareButtons client:load title={post.data.title} url={currentUrl} />
+        </footer>
+      </article>
+
+      <!-- ToC overlay -->
+      <div class="hidden xl:block fixed inset-0 pointer-events-none z-20">
+        <div class="max-w-[896px] mx-auto relative h-full">
+          <aside class="absolute left-full top-24 ml-8 w-64 pointer-events-auto">
+            <nav class="sticky top-24 max-h-[calc(100vh-12rem)] overflow-y-auto">
+              <TableOfContents client:load content={post.id} />
+            </nav>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

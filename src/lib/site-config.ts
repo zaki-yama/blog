@@ -31,5 +31,5 @@ export const SITE_CONFIG = {
  * Get base URL with fallback to environment variable
  */
 export function getBaseUrl(): string {
-  return process.env.NEXT_PUBLIC_SITE_URL || SITE_CONFIG.url.base;
+  return import.meta.env.PUBLIC_SITE_URL || SITE_CONFIG.url.base;
 }

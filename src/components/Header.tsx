@@ -1,8 +1,5 @@
-'use client';
-
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { SITE_CONFIG } from '../../lib/site-config';
+import { SITE_CONFIG } from '../lib/site-config';
 
 export default function Header() {
   const [darkMode, setDarkMode] = useState(false);
@@ -34,12 +31,12 @@ export default function Header() {
     <header className="border-b border-gray-100 dark:border-gray-800">
       <div className="mx-auto px-8 py-3 max-w-[1200px]">
         <div className="flex items-center justify-between">
-          <Link
+          <a
             href="/"
             className="text-base font-medium text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
           >
             {SITE_CONFIG.name}
-          </Link>
+          </a>
 
           <nav className="flex items-center space-x-4">
             <a
