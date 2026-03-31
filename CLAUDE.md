@@ -1,102 +1,99 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、Claude Code (claude.ai/code) がこのリポジトリで作業する際のガイダンスを提供します。
 
-## Project Overview
+## プロジェクト概要
 
-This is a technical blog built with Next.js, designed for sharing programming knowledge and learning experiences.
+Astroで構築した技術ブログ。プログラミングの知識や学習経験を共有するためのサイト。
 
-## Commands
+## コマンド
 
-### Development
-- `pnpm dev` - Start Next.js development server
-- `pnpm build` - Build the static site
-- `pnpm start` - Start production server
+### 開発
+- `pnpm dev` - 開発サーバーを起動
+- `pnpm build` - 静的サイトをビルド
+- `pnpm preview` - ビルド結果をローカルでプレビュー
 
-### Project Structure
-- `src/app/` - Next.js App Router pages
-- `posts/` - Blog posts directory (Markdown format)
-- `lib/` - Utility functions and data fetching
-- `docs/` - Work logs and documentation
-- `todo.md` - Task management
+### プロジェクト構成
+- `src/` - Astroのソースコード
+- `posts/` - ブログ記事ディレクトリ（Markdown形式）
+- `docs/` - 作業ログとドキュメント
+- `todo.md` - タスク管理
 
-## Writing Content
+## 記事の執筆
 
-### Adding New Articles
-1. Create a new `.md` file in the `posts/` directory
-2. Add frontmatter with title, date, category, and description
-3. Write content in pure Markdown
-4. Article automatically appears on homepage after build
+### 新しい記事の追加
+1. `posts/` ディレクトリに新しい `.md` ファイルを作成する
+2. frontmatterにタイトル、日付、カテゴリ、説明を追加する
+3. 本文をMarkdownで書く
+4. ビルド後にホームページに自動表示される
 
-### Frontmatter Format
+### frontmatterの形式
 ```markdown
 ---
-title: 'Article Title'
+title: '記事タイトル'
 date: '2024-06-19'
-category: 'Category Name'
-description: 'Article description'
+category: 'カテゴリ名'
+description: '記事の説明'
 ---
 ```
 
-## Work Management
+## 作業管理
 
-### Daily Work Logs (開発日誌)
-- Create `docs/YYYY-MM-DD-{topic}.md` for each work session  
-- **IMPORTANT**: Always use `date` command to check current date before creating work logs
-- Include what was accomplished, challenges faced, emotions, and learnings
-- Write freely as personal notes for future reference
-- **Write in Japanese**
+### 開発日誌
+- 作業セッションごとに `docs/YYYY-MM-DD-{topic}.md` を作成する
+- **重要**: 作業ログを作成する前に必ず `date` コマンドで現在の日付を確認する
+- 達成したこと、直面した課題、感情的な変化、技術的な学びを記録する
+- 将来の参照のための個人メモとして自由に書く
+- **日本語で書く**
 
-### TODO Management
-- All tasks are tracked in `todo.md` - this is the single source of truth
-- **DO NOT use TodoWrite tool** - manage tasks by directly editing `todo.md`
-- Update task status immediately upon completion by editing the file
-- Add new tasks as they arise by editing the file
-- Include detailed subtasks for complex features
-- Always read `todo.md` at the beginning of work sessions to understand current status
-- Use TodoRead tool is not needed - just read the file directly with Read tool
+### TODOの管理
+- すべてのタスクは `todo.md` で管理する（唯一の情報源）
+- **TodoWriteツールは使用しない** — `todo.md` を直接編集してタスクを管理する
+- 完了したらすぐにファイルを編集してタスクのステータスを更新する
+- 新しいタスクが発生したらファイルを編集して追加する
+- 複雑な機能には詳細なサブタスクを含める
+- 作業セッションの開始時は必ず `todo.md` を読んで現在の状況を把握する
 
-### Work Log Template
+### 作業ログのテンプレート
 ```markdown
 # YYYY-MM-DD 作業記録
 
 ## 今日やったこと
-- [Completed tasks]
+- [完了したタスク]
 
 ## 直面した課題
-- [Challenges and solutions]
+- [課題と解決策]
 
 ## 感情的な変化
-- [Personal reflections]
+- [個人的な振り返り]
 
 ## 技術的な学び
-- [Technical insights]
+- [技術的な気づき]
 
 ## 次回への引き継ぎ
-- [Notes for next session]
+- [次のセッションへのメモ]
 ```
 
-## Communication Guidelines
+## ADR（アーキテクチャ決定記録）
 
-- All conversations with the user should be conducted in Japanese
-- Code comments, commit messages, and issues should be written in English
-- Documents under `docs/` directory should be written in Japanese
-- Daily Work Logs (`docs/YYYY-MM-DD-{topic}.md`) should be written in Japanese
-- This ensures accessibility for both Japanese and international developers
+- ADRは `docs/adrs/` に保存する
+- 新しいADRを作成するときは `docs/adrs/000-template.md` のフォーマットに従う
+- 連番で命名する（例: `005-topic-name.md`）
 
-## ADR (Architecture Decision Records)
+## コミュニケーションガイドライン
 
-- ADRs are stored in `docs/adrs/`
-- When creating a new ADR, follow the format defined in `docs/adrs/000-template.md`
-- Number sequentially (e.g., `005-topic-name.md`)
+- ユーザーとの会話はすべて日本語で行う
+- コードコメント、コミットメッセージ、issueは英語で書く
+- `docs/` 以下のドキュメントは日本語で書く
+- 日本語と英語の両方の開発者がアクセスしやすくするため
 
-## Reference Documents
+## 参考ドキュメント
 
-- **Requirements**: See `requirements.md` for detailed project requirements and specifications
-- **Tasks**: See `todo.md` for current task list and project roadmap
+- **要件**: 詳細な要件と仕様は `requirements.md` を参照
+- **タスク**: 現在のタスク一覧とロードマップは `todo.md` を参照
 
-## Configuration
+## 設定
 
-- Claude Code permissions are configured in `.claude/settings.local.json`
-- Repository is git-initialized on the `main` branch
-- Next.js configuration in `next.config.ts`
+- Claude Codeの権限は `.claude/settings.local.json` で設定
+- リポジトリは `main` ブランチで管理
+- Astroの設定は `astro.config.ts`
