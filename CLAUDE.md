@@ -84,6 +84,12 @@ description: 'Article description'
 - Daily Work Logs (`docs/YYYY-MM-DD-{topic}.md`) should be written in Japanese
 - This ensures accessibility for both Japanese and international developers
 
+## ADR (Architecture Decision Records)
+
+- ADRs are stored in `docs/adrs/`
+- When creating a new ADR, follow the format defined in `docs/adrs/000-template.md`
+- Number sequentially (e.g., `005-topic-name.md`)
+
 ## Reference Documents
 
 - **Requirements**: See `requirements.md` for detailed project requirements and specifications
