@@ -27,6 +27,38 @@
 - 良好なパフォーマンス（Core Web Vitals）
 - メンテナンスコストが低いこと
 
+## 決定
+
+当初の提案からの修正あり。
+
+### 当初の提案（2026-02-15）: Astro + Netlify
+
+フレームワークを Next.js から Astro に移行し、ホスティングを Cloudflare Workers から Netlify に変更する。
+
+### 実際の決定（2026-03-31）: Astro + Cloudflare Workers (static output)
+
+フレームワークを **Astro** に移行する点は同じだが、ホスティングは **Cloudflare Workers のまま**とする。
+
+#### 修正の理由
+
+- `@opennextjs/cloudflare` を使った Next.js 構成では Worker JS バンドルに記事コンテンツが埋め込まれていたが、**Astro の `output: 'static'` を使えば Worker JS 自体が不要になる**ことが判明
+- Cloudflare Workers の Static Assets 配信を利用することで、Worker サイズ問題を根本解決できる
+- カスタムドメイン（blog.zaki-yama.dev）や wrangler 設定など既存インフラをそのまま活用できる
+- Netlify への移行は不要なコストとなる
+
+#### 実測結果
+
+| 指標 | 移行前 (Next.js) | 移行後 (Astro) |
+|---|---|---|
+| Worker Upload (raw) | 8,110 KiB | **0.34 KiB** |
+| Worker Upload (gzip) | 2,208 KiB | **0.24 KiB** |
+| デプロイ形式 | Worker JS + Static Assets | **Static Assets のみ** |
+
+### リスク認識
+
+- Astroへの移行作業が必要（実施済み）
+- admin ページ + Cloudinary 画像アップロード機能は静的出力では動作しないため別途対応が必要（issue #20）
+
 ## 検討した選択肢
 
 ### フレームワークの選択肢
@@ -460,40 +492,6 @@ Googleのコンテナベースサーバーレスプラットフォーム。Next.
 **注意点**
 - Go Templatesの学習コスト
 - Next.jsからの移行コストが最も大きい
-
----
-
-## 決定
-
-当初の提案からの修正あり。
-
-### 当初の提案（2026-02-15）: Astro + Netlify
-
-フレームワークを Next.js から Astro に移行し、ホスティングを Cloudflare Workers から Netlify に変更する。
-
-### 実際の決定（2026-03-31）: Astro + Cloudflare Workers (static output)
-
-フレームワークを **Astro** に移行する点は同じだが、ホスティングは **Cloudflare Workers のまま**とする。
-
-#### 修正の理由
-
-- `@opennextjs/cloudflare` を使った Next.js 構成では Worker JS バンドルに記事コンテンツが埋め込まれていたが、**Astro の `output: 'static'` を使えば Worker JS 自体が不要になる**ことが判明
-- Cloudflare Workers の Static Assets 配信を利用することで、Worker サイズ問題を根本解決できる
-- カスタムドメイン（blog.zaki-yama.dev）や wrangler 設定など既存インフラをそのまま活用できる
-- Netlify への移行は不要なコストとなる
-
-#### 実測結果
-
-| 指標 | 移行前 (Next.js) | 移行後 (Astro) |
-|---|---|---|
-| Worker Upload (raw) | 8,110 KiB | **0.34 KiB** |
-| Worker Upload (gzip) | 2,208 KiB | **0.24 KiB** |
-| デプロイ形式 | Worker JS + Static Assets | **Static Assets のみ** |
-
-### リスク認識
-
-- Astroへの移行作業が必要（実施済み）
-- admin ページ + Cloudinary 画像アップロード機能は静的出力では動作しないため別途対応が必要（issue #20）
 
 ---
 
