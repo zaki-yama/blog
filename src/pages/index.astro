@@ -5,7 +5,7 @@ import { SITE_CONFIG, getBaseUrl } from '../lib/site-config';
 import { generateWebSiteJsonLd, generateOrganizationJsonLd } from '../lib/structured-data';
 
 const posts = await getCollection('posts');
-const sortedPosts = posts.sort(
+const sortedPosts = posts.toSorted(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
 
@@ -31,6 +31,7 @@ const organizationJsonLd = generateOrganizationJsonLd(baseUrl);
           <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">
             {SITE_CONFIG.name}
           </h1>
+          なんとかなる
         </div>
       </div>
     </header>
