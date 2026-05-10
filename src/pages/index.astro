@@ -5,7 +5,7 @@ import { SITE_CONFIG, getBaseUrl } from '../lib/site-config';
 import { generateWebSiteJsonLd, generateOrganizationJsonLd } from '../lib/structured-data';
 
 const posts = await getCollection('posts');
-const sortedPosts = posts.sort(
+const sortedPosts = posts.toSorted(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
 
