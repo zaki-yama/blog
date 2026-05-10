@@ -2,6 +2,8 @@ import { getCollection } from 'astro:content';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import { SITE_CONFIG } from '../../lib/site-config';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -25,8 +27,15 @@ async function fetchFont(url: string): Promise<ArrayBuffer> {
   return res.arrayBuffer();
 }
 
+function getLogoDataUrl(): string {
+  const logoPath = resolve(process.cwd(), 'public/logo.png');
+  const logoBuffer = readFileSync(logoPath);
+  return `data:image/png;base64,${logoBuffer.toString('base64')}`;
+}
+
 export async function GET({ props }: { props: Props }) {
   const { title, category } = props;
+  const logoDataUrl = getLogoDataUrl();
 
   let fontData: ArrayBuffer;
   try {
@@ -222,32 +231,45 @@ export async function GET({ props }: { props: Props }) {
                                 alignItems: 'flex-end',
                                 justifyContent: 'space-between',
                               },
-                              children: {
-                                type: 'div',
-                                props: {
-                                  style: { display: 'flex', alignItems: 'center', gap: '12px' },
-                                  children: [
-                                    {
-                                      type: 'span',
-                                      props: {
-                                        style: { fontSize: '18px', color: '#6ee7b7' },
-                                        children: '$',
-                                      },
-                                    },
-                                    {
-                                      type: 'span',
-                                      props: {
-                                        style: {
-                                          fontSize: '22px',
-                                          fontWeight: '600',
-                                          color: '#93c5fd',
+                              children: [
+                                {
+                                  type: 'div',
+                                  props: {
+                                    style: { display: 'flex', alignItems: 'center', gap: '12px' },
+                                    children: [
+                                      {
+                                        type: 'span',
+                                        props: {
+                                          style: { fontSize: '18px', color: '#6ee7b7' },
+                                          children: '$',
                                         },
-                                        children: SITE_CONFIG.name,
                                       },
-                                    },
-                                  ],
+                                      {
+                                        type: 'span',
+                                        props: {
+                                          style: {
+                                            fontSize: '22px',
+                                            fontWeight: '600',
+                                            color: '#93c5fd',
+                                          },
+                                          children: SITE_CONFIG.name,
+                                        },
+                                      },
+                                    ],
+                                  },
                                 },
-                              },
+                                {
+                                  type: 'img',
+                                  props: {
+                                    src: logoDataUrl,
+                                    style: {
+                                      width: '96px',
+                                      height: '96px',
+                                      borderRadius: '50%',
+                                    },
+                                  },
+                                },
+                              ],
                             },
                           },
                         ],
