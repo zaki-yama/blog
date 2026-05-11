@@ -19,7 +19,11 @@ const websiteJsonLd = generateWebSiteJsonLd({
 const organizationJsonLd = generateOrganizationJsonLd(baseUrl);
 ---
 
-<BaseLayout title={SITE_CONFIG.name} description={SITE_CONFIG.description}>
+<BaseLayout
+  title={SITE_CONFIG.name}
+  description={SITE_CONFIG.description}
+  ogImageUrl={`${baseUrl}/og/index.png`}
+>
   <script type="application/ld+json" set:html={websiteJsonLd} />
   <script type="application/ld+json" set:html={organizationJsonLd} />
 
