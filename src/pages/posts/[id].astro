@@ -5,6 +5,7 @@ import SocialShareButtons from '../../components/SocialShareButtons';
 import TableOfContents from '../../components/TableOfContents';
 import { SITE_CONFIG, getBaseUrl } from '../../lib/site-config';
 import { generateArticleJsonLd, generateBreadcrumbJsonLd } from '../../lib/structured-data';
+import { containsTweetUrl } from '../../lib/rehype-twitter-embed';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -39,6 +40,7 @@ const breadcrumbJsonLd = generateBreadcrumbJsonLd([
 ]);
 
 const ogImageUrl = `${baseUrl}/og/${post.id}.png`;
+const hasTwitterEmbed = containsTweetUrl(post.body ?? '');
 ---
 
 <BaseLayout
@@ -82,6 +84,7 @@ const ogImageUrl = `${baseUrl}/og/${post.id}.png`;
         <div class="prose prose-lg max-w-none">
           <Content />
         </div>
+        {hasTwitterEmbed && <script async src="https://platform.twitter.com/widgets.js" charset="utf-8" />}
 
         <footer class="mt-12 pt-6 border-t border-gray-100 dark:border-gray-800">
           <SocialShareButtons client:load title={post.data.title} url={currentUrl} />

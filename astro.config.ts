@@ -2,6 +2,11 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import remarkDirective from 'remark-directive';
+import { remarkImageSize } from './src/lib/remark-image-size';
+import { remarkZennMessage } from './src/lib/remark-zenn-message';
+import { rehypeTwitterEmbed } from './src/lib/rehype-twitter-embed';
+import { rehypeLinkCard } from './src/lib/rehype-link-card';
 
 function rehypeHeadingIds() {
   return (tree: any) => {
@@ -53,6 +58,7 @@ export default defineConfig({
       theme: 'dark-plus',
       wrap: true,
     },
-    rehypePlugins: [rehypeHeadingIds],
+    remarkPlugins: [remarkImageSize, remarkDirective, remarkZennMessage],
+    rehypePlugins: [rehypeHeadingIds, rehypeTwitterEmbed, rehypeLinkCard],
   },
 });
