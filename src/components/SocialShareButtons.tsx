@@ -1,4 +1,11 @@
-import { HatenaIcon, HatenaShareButton, LinkedinIcon, LinkedinShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
+import {
+  HatenaIcon,
+  HatenaShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+} from 'react-share';
 
 interface SocialShareButtonsProps {
   title: string;
