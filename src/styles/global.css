@@ -66,13 +66,76 @@ body {
 }
 .prose h2 {
   font-size: 1.5rem;
-  margin-top: 2rem;
+  font-weight: 700;
+  margin-top: 3rem;
   margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+.dark .prose h2 {
+  border-bottom-color: #374151;
 }
 .prose h3 {
   font-size: 1.25rem;
-  margin-top: 1.5rem;
+  font-weight: 700;
+  margin-top: 2rem;
   margin-bottom: 0.75rem;
+}
+
+/* Heading anchor links (icon shown on hover) */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  scroll-margin-top: 1.5rem;
+}
+
+.prose .heading-anchor {
+  margin-left: 0.5rem;
+  color: #9ca3af;
+  text-decoration: none;
+  opacity: 0;
+  transition:
+    opacity 0.15s,
+    color 0.15s;
+}
+
+.prose h1:hover .heading-anchor,
+.prose h2:hover .heading-anchor,
+.prose h3:hover .heading-anchor,
+.prose h4:hover .heading-anchor,
+.prose h5:hover .heading-anchor,
+.prose h6:hover .heading-anchor,
+.prose .heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+.prose .heading-anchor:hover {
+  color: #2563eb;
+}
+
+.dark .prose .heading-anchor {
+  color: #6b7280;
+}
+
+.dark .prose .heading-anchor:hover {
+  color: #60a5fa;
+}
+
+.prose .heading-anchor svg {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  vertical-align: -0.05em;
+}
+
+/* Touch devices have no hover: keep the anchor faintly visible */
+@media (hover: none) {
+  .prose .heading-anchor {
+    opacity: 0.4;
+  }
 }
 
 .prose p {
