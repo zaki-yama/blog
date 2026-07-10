@@ -137,10 +137,19 @@ body {
 
 /* Zenn-style :::message blocks */
 .prose .msg-block {
+  position: relative;
   margin: 1.5rem 0;
-  padding: 1rem 1.25rem;
+  padding: 1rem 1.25rem 1rem 3rem;
   border-radius: 0.5rem;
   border: 1px solid;
+}
+
+.prose .msg-block::before {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
 }
 
 .prose .msg-block > :first-child {
@@ -157,6 +166,10 @@ body {
   color: #0c4a6e;
 }
 
+.prose .msg-block-info::before {
+  content: '💡';
+}
+
 .dark .prose .msg-block-info {
   background-color: rgba(56, 189, 248, 0.1);
   border-color: rgba(56, 189, 248, 0.3);
@@ -167,6 +180,10 @@ body {
   background-color: #fffbeb;
   border-color: #fde68a;
   color: #78350f;
+}
+
+.prose .msg-block-alert::before {
+  content: '⚠️';
 }
 
 .dark .prose .msg-block-alert {
