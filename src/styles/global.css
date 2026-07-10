@@ -135,6 +135,46 @@ body {
   color: #9ca3af;
 }
 
+/* Zenn-style :::message blocks */
+.prose .msg-block {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid;
+}
+
+.prose .msg-block > :first-child {
+  margin-top: 0;
+}
+
+.prose .msg-block > :last-child {
+  margin-bottom: 0;
+}
+
+.prose .msg-block-info {
+  background-color: #f0f9ff;
+  border-color: #bae6fd;
+  color: #0c4a6e;
+}
+
+.dark .prose .msg-block-info {
+  background-color: rgba(56, 189, 248, 0.1);
+  border-color: rgba(56, 189, 248, 0.3);
+  color: #bae6fd;
+}
+
+.prose .msg-block-alert {
+  background-color: #fffbeb;
+  border-color: #fde68a;
+  color: #78350f;
+}
+
+.dark .prose .msg-block-alert {
+  background-color: rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.3);
+  color: #fde68a;
+}
+
 /* Reset blockquote styling for Twitter/X embeds; widgets.js replaces the
    element client-side, so this only affects the brief pre-hydration state. */
 .prose blockquote.twitter-tweet {
