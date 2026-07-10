@@ -1,10 +1,10 @@
 import {
+  BlueskyIcon,
+  BlueskyShareButton,
   HatenaIcon,
   HatenaShareButton,
-  LinkedinIcon,
-  LinkedinShareButton,
-  TwitterIcon,
-  TwitterShareButton,
+  XIcon,
+  XShareButton,
 } from 'react-share';
 
 interface SocialShareButtonsProps {
@@ -18,13 +18,13 @@ export default function SocialShareButtons({ title, url }: SocialShareButtonsPro
     <div className="flex items-center gap-4">
       <span className="text-sm text-gray-400 dark:text-gray-500">Share:</span>
 
-      <TwitterShareButton url={url} title={title}>
-        <TwitterIcon size={32} round />
-      </TwitterShareButton>
+      <XShareButton url={url} title={title}>
+        <XIcon size={32} round />
+      </XShareButton>
 
-      <LinkedinShareButton url={url} title={title}>
-        <LinkedinIcon size={32} round />
-      </LinkedinShareButton>
+      <BlueskyShareButton url={url} title={title}>
+        <BlueskyIcon size={32} round />
+      </BlueskyShareButton>
 
       <HatenaShareButton url={url} title={title}>
         <HatenaIcon size={32} round />
