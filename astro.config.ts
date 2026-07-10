@@ -6,6 +6,7 @@ import remarkDirective from 'remark-directive';
 import { remarkImageSize } from './src/lib/remark-image-size';
 import { remarkZennMessage } from './src/lib/remark-zenn-message';
 import { rehypeTwitterEmbed } from './src/lib/rehype-twitter-embed';
+import { rehypeLinkCard } from './src/lib/rehype-link-card';
 
 function rehypeHeadingIds() {
   return (tree: any) => {
@@ -58,6 +59,6 @@ export default defineConfig({
       wrap: true,
     },
     remarkPlugins: [remarkImageSize, remarkDirective, remarkZennMessage],
-    rehypePlugins: [rehypeHeadingIds, rehypeTwitterEmbed],
+    rehypePlugins: [rehypeHeadingIds, rehypeTwitterEmbed, rehypeLinkCard],
   },
 });
