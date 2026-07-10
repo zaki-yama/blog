@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import { remarkImageSize } from './src/lib/remark-image-size';
 
 function rehypeHeadingIds() {
   return (tree: any) => {
@@ -53,6 +54,7 @@ export default defineConfig({
       theme: 'dark-plus',
       wrap: true,
     },
+    remarkPlugins: [remarkImageSize],
     rehypePlugins: [rehypeHeadingIds],
   },
 });

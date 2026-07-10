@@ -79,6 +79,11 @@ body {
   margin-bottom: 1.25rem;
 }
 
+.prose img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Shiki code block styling */
 .prose pre.astro-code {
   border-radius: 0.5rem;
