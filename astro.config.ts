@@ -3,6 +3,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { remarkImageSize } from './src/lib/remark-image-size';
+import { rehypeTwitterEmbed } from './src/lib/rehype-twitter-embed';
 
 function rehypeHeadingIds() {
   return (tree: any) => {
@@ -55,6 +56,6 @@ export default defineConfig({
       wrap: true,
     },
     remarkPlugins: [remarkImageSize],
-    rehypePlugins: [rehypeHeadingIds],
+    rehypePlugins: [rehypeHeadingIds, rehypeTwitterEmbed],
   },
 });

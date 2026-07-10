@@ -135,6 +135,15 @@ body {
   color: #9ca3af;
 }
 
+/* Reset blockquote styling for Twitter/X embeds; widgets.js replaces the
+   element client-side, so this only affects the brief pre-hydration state. */
+.prose blockquote.twitter-tweet {
+  border-left: none;
+  padding-left: 0;
+  margin: 1.5rem 0;
+  font-style: normal;
+}
+
 .prose ul,
 .prose ol {
   margin: 1.25rem 0;
