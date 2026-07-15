@@ -1,6 +1,6 @@
 # Technical Blog
 
-A modern technical blog built with Next.js 15 and deployed on Cloudflare Workers, designed for sharing programming knowledge and learning experiences.
+A modern technical blog built with Astro and deployed on Cloudflare Workers, designed for sharing programming knowledge and learning experiences.
 
 ## Features
 
@@ -19,15 +19,15 @@ A modern technical blog built with Next.js 15 and deployed on Cloudflare Workers
 1. Clone the repository
 2. Install dependencies:
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. Start the development server:
    ```bash
-   npm run dev
+   pnpm dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) to view the site
+4. Open [http://localhost:4321](http://localhost:4321) to view the site
 
 ### Writing Articles
 
@@ -50,15 +50,11 @@ A modern technical blog built with Next.js 15 and deployed on Cloudflare Workers
 
 ### Google Analytics Setup
 
-1. Create a Google Analytics 4 property
-2. Get your measurement ID (format: `G-XXXXXXXXXX`)
-3. Set the environment variable:
-   ```bash
-   cp .env.local.example .env.local
-   # Edit .env.local and add your GA ID
-   ```
+The GA4 measurement ID is defined as a constant in [`src/lib/site-config.ts`](src/lib/site-config.ts) (`SITE_CONFIG.analytics.gaId`). It is only injected into production builds (`import.meta.env.PROD`) — `pnpm dev` / `astro preview` never load the GA script, so local traffic is never tracked.
 
-For detailed setup instructions, see [docs/google-analytics-setup.md](docs/google-analytics-setup.md).
+To change the measurement ID, edit `SITE_CONFIG.analytics.gaId` directly.
+
+For details on why this is a build-time constant rather than an environment variable, see [docs/google-analytics-setup.md](docs/google-analytics-setup.md).
 
 ### Cloudinary Setup (for Image Upload)
 
@@ -75,11 +71,12 @@ For detailed setup instructions, see [docs/google-analytics-setup.md](docs/googl
 
 ### Environment Variables
 
-- `NEXT_PUBLIC_SITE_URL`: Your site URL (required for SEO)
-- `NEXT_PUBLIC_GA_ID`: Google Analytics measurement ID (optional)
+- `PUBLIC_SITE_URL`: Overrides the site URL used for canonical links (optional; falls back to `SITE_CONFIG.url.base` in `src/lib/site-config.ts`)
 - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`: Cloudinary cloud name (required for image upload)
 - `CLOUDINARY_API_KEY`: Cloudinary API key (required for image upload)
 - `CLOUDINARY_API_SECRET`: Cloudinary API secret (required for image upload)
+
+Note: this project is a fully static Astro site (`output: 'static'`, no adapter). `astro build` runs entirely at build time, so only environment variables present in the shell (or an `.env` file) *at build time* take effect — values set in `wrangler.jsonc`'s `vars` are never read, since there is no server-side Worker script to read them.
 
 ## Deployment
 
@@ -87,25 +84,20 @@ This project is configured for Cloudflare Workers deployment:
 
 ```bash
 # Build and deploy
-npm run deploy
+pnpm run deploy
 
 # Preview deployment
-npm run preview
+pnpm run preview
 ```
-
-### Production Environment Variables
-
-Set these in your Cloudflare Workers environment:
-- `NEXT_PUBLIC_SITE_URL`: `https://your-domain.com`
-- `NEXT_PUBLIC_GA_ID`: Your Google Analytics ID
 
 ## Project Structure
 
 ```
 ├── src/
-│   ├── app/           # Next.js App Router pages
-│   ├── components/    # React components
-│   └── lib/          # Utility functions
+│   ├── pages/         # Astro pages (file-based routing)
+│   ├── layouts/       # Astro layouts
+│   ├── components/    # UI components
+│   └── lib/           # Utility functions
 ├── posts/            # Blog articles (Markdown)
 ├── docs/             # Documentation and work logs
 ├── todo.md           # Task management
@@ -114,11 +106,10 @@ Set these in your Cloudflare Workers environment:
 
 ## Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run deploy` - Deploy to Cloudflare Workers
-- `npm run preview` - Preview Cloudflare deployment locally
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm run deploy` - Build and deploy to Cloudflare Workers
+- `pnpm preview` - Preview the built site locally
 
 ### Favicon Generation
 
@@ -144,10 +135,10 @@ This script generates:
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 with App Router
+- **Framework**: Astro (static output)
 - **Styling**: Tailwind CSS 4
 - **Syntax Highlighting**: Shiki
-- **Deployment**: Cloudflare Workers via OpenNext
+- **Deployment**: Cloudflare Workers (static assets)
 - **Analytics**: Google Analytics 4
 - **Content**: Markdown with gray-matter
 
