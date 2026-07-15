@@ -25,6 +25,11 @@ export const SITE_CONFIG = {
 
   // SEO
   keywords: ['プログラミング', '技術ブログ', 'エンジニア', 'Web開発'] as string[],
+
+  // Analytics
+  analytics: {
+    gaId: 'G-WTRHNJ8JBX',
+  },
 };
 
 /**

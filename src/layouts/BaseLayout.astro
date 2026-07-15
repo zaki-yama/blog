@@ -15,7 +15,7 @@ const {
   ogImageUrl,
 } = Astro.props;
 
-const GA_ID = import.meta.env.PUBLIC_GA_ID;
+const GA_ID = import.meta.env.PROD && SITE_CONFIG.analytics.gaId;
 const siteUrl = import.meta.env.PUBLIC_SITE_URL || SITE_CONFIG.url.base;
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 ---
