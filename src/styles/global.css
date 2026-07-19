@@ -147,6 +147,14 @@ body {
   height: auto;
 }
 
+/* Mermaid diagrams: rendered client-side into the div's contents */
+.prose .mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
 /* Shiki code block styling */
 .prose pre.astro-code {
   border-radius: 0.5rem;

@@ -7,6 +7,7 @@ import { remarkImageSize } from './src/lib/remark-image-size';
 import { remarkZennMessage } from './src/lib/remark-zenn-message';
 import { rehypeTwitterEmbed } from './src/lib/rehype-twitter-embed';
 import { rehypeLinkCard } from './src/lib/rehype-link-card';
+import { rehypeMermaid } from './src/lib/rehype-mermaid';
 
 function rehypeHeadingIds() {
   return (tree: any) => {
@@ -98,7 +99,11 @@ export default defineConfig({
       theme: 'dark-plus',
       wrap: true,
     },
+    syntaxHighlight: {
+      type: 'shiki',
+      excludeLangs: ['mermaid'],
+    },
     remarkPlugins: [remarkImageSize, remarkDirective, remarkZennMessage],
-    rehypePlugins: [rehypeHeadingIds, rehypeTwitterEmbed, rehypeLinkCard],
+    rehypePlugins: [rehypeMermaid, rehypeHeadingIds, rehypeTwitterEmbed, rehypeLinkCard],
   },
 });
