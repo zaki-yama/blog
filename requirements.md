@@ -57,6 +57,5 @@
 ## Media Management
 
 ### Image & Video Storage
-- **Cloudinary** integration for image and video management
-- Free tier: 25GB storage, 25,000 transformations/month
-- Automatic image optimization and responsive delivery
+- **Cloudflare R2** for image storage and public delivery
+- Uploading is done via a local-only tool (`pnpm upload`), not a deployed admin page
