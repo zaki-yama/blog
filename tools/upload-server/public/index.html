@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Blog Image Uploader (R2)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      body {
+        max-width: 640px;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        color: #1f2933;
+        background: #fff;
+      }
+      h1 {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+      #dropzone {
+        border: 2px dashed #cbd5e1;
+        border-radius: 0.5rem;
+        padding: 2.5rem 1rem;
+        text-align: center;
+        transition:
+          border-color 0.15s,
+          background-color 0.15s;
+      }
+      #dropzone.dragover {
+        border-color: #60a5fa;
+        background: #eff6ff;
+      }
+      #dropzone.uploading {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      #dropzone p {
+        margin: 0.25rem 0;
+        color: #52606d;
+      }
+      .choose-btn {
+        display: inline-block;
+        margin-top: 0.75rem;
+        padding: 0.5rem 1rem;
+        background: #2563eb;
+        color: #fff;
+        border-radius: 0.375rem;
+        cursor: pointer;
+      }
+      .choose-btn:hover {
+        background: #1d4ed8;
+      }
+      .hint {
+        font-size: 0.85rem;
+        color: #7b8794;
+      }
+      .spinner {
+        margin: 0 auto 0.5rem;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        border: 3px solid #bfdbfe;
+        border-top-color: #2563eb;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      #result {
+        display: none;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 0.5rem;
+      }
+      #result h2 {
+        font-size: 1rem;
+        color: #15803d;
+        margin: 0 0 0.5rem;
+      }
+      #result .meta {
+        font-size: 0.85rem;
+        color: #166534;
+        margin-bottom: 0.5rem;
+      }
+      #result .row {
+        display: flex;
+        gap: 0.5rem;
+      }
+      #markdown-output {
+        flex: 1;
+        padding: 0.5rem;
+        border: 1px solid #bbf7d0;
+        border-radius: 0.375rem;
+        font-size: 0.85rem;
+        font-family: ui-monospace, monospace;
+      }
+      #copy-btn {
+        padding: 0.5rem 1rem;
+        background: #16a34a;
+        color: #fff;
+        border: none;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        font-size: 0.85rem;
+      }
+      #copy-btn:hover {
+        background: #15803d;
+      }
+      #reset-btn {
+        display: block;
+        margin-top: 0.75rem;
+        background: none;
+        border: none;
+        color: #16a34a;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 0.85rem;
+        padding: 0;
+      }
+      #error {
+        display: none;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 0.5rem;
+        color: #b91c1c;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Blog Image Uploader (Cloudflare R2 / local only)</h1>
+
+    <div id="dropzone">
+      <div id="idle-state">
+        <p>Drop an image here or</p>
+        <label class="choose-btn">
+          Choose File
+          <input id="file-input" type="file" accept="image/*" style="display: none" />
+        </label>
+        <p class="hint">Supports PNG, JPG, GIF up to 10MB</p>
+      </div>
+      <div id="uploading-state" style="display: none">
+        <div class="spinner"></div>
+        <p>Uploading...</p>
+      </div>
+    </div>
+
+    <div id="result">
+      <h2>Upload Successful!</h2>
+      <p class="meta" id="result-meta"></p>
+      <label class="hint" for="markdown-output"
+        >Markdown code (copy and paste into your article):</label
+      >
+      <div class="row" style="margin-top: 0.25rem">
+        <input id="markdown-output" type="text" readonly />
+        <button id="copy-btn">Copy</button>
+      </div>
+      <button id="reset-btn">Upload another image</button>
+    </div>
+
+    <div id="error"></div>
+
+    <script>
+      const dropzone = document.getElementById('dropzone');
+      const idleState = document.getElementById('idle-state');
+      const uploadingState = document.getElementById('uploading-state');
+      const fileInput = document.getElementById('file-input');
+      const result = document.getElementById('result');
+      const resultMeta = document.getElementById('result-meta');
+      const markdownOutput = document.getElementById('markdown-output');
+      const copyBtn = document.getElementById('copy-btn');
+      const resetBtn = document.getElementById('reset-btn');
+      const errorBox = document.getElementById('error');
+
+      function setUploading(uploading) {
+        dropzone.classList.toggle('uploading', uploading);
+        idleState.style.display = uploading ? 'none' : 'block';
+        uploadingState.style.display = uploading ? 'block' : 'none';
+      }
+
+      function showError(message) {
+        errorBox.textContent = 'Upload failed: ' + message;
+        errorBox.style.display = 'block';
+      }
+
+      function showResult(data) {
+        result.style.display = 'block';
+        resultMeta.textContent = `Image uploaded: ${data.width}x${data.height} (${(data.bytes / 1024).toFixed(1)}KB)`;
+        markdownOutput.value = `![Image description](${data.url})`;
+        copyBtn.textContent = 'Copy';
+      }
+
+      async function uploadFile(file) {
+        if (!file.type.startsWith('image/')) {
+          showError('Please select an image file');
+          return;
+        }
+
+        errorBox.style.display = 'none';
+        result.style.display = 'none';
+        setUploading(true);
+
+        try {
+          const formData = new FormData();
+          formData.append('file', file);
+
+          const response = await fetch('/api/upload', { method: 'POST', body: formData });
+          const data = await response.json();
+
+          if (data.success) {
+            showResult(data);
+          } else {
+            showError(data.error || 'Unknown error');
+          }
+        } catch (error) {
+          showError(error.message);
+        } finally {
+          setUploading(false);
+        }
+      }
+
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (file) uploadFile(file);
+      });
+
+      dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+      dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+        const file = e.dataTransfer.files?.[0];
+        if (file) uploadFile(file);
+      });
+
+      copyBtn.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(markdownOutput.value);
+        copyBtn.textContent = '✓ Copied!';
+        setTimeout(() => (copyBtn.textContent = 'Copy'), 2000);
+      });
+
+      resetBtn.addEventListener('click', () => {
+        result.style.display = 'none';
+        fileInput.value = '';
+      });
+    </script>
+  </body>
+</html>

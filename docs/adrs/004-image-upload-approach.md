@@ -2,7 +2,7 @@
 
 ## ステータス
 
-提案中
+決定（2026-07-20）
 
 ## コンテキスト
 
@@ -19,7 +19,20 @@ Astroは静的サイト生成（`output: 'static'`）を採用しており、サ
 
 ## 決定
 
-未定
+**案4: ローカル専用Node.jsサーバー** を採用する。ただしアップロード先はCloudinaryではなく[Cloudflare R2](001-image-hosting-service-selection.md)に変更する。
+
+### 決定理由
+- Astroの静的サイト構成（`output: 'static'`）に一切影響を与えない
+- ブログ記事数・アップロード頻度が少ないため、ブラウザからの操作性（案3）より実装のシンプルさ・保守コストの低さを優先
+- リポジトリ直接配置（案1）と比べ、画像バイナリをGit管理から外せる
+- R2はS3互換APIを持つため、CLIスクリプト（案2）と同程度の実装コストでローカルサーバーを構築できる
+
+### 実装
+- `tools/upload-server/`にExpress製のローカルサーバーを配置（`pnpm upload`で起動、ポート3333）
+- `@aws-sdk/client-s3`でR2のS3互換APIへ直接PUT
+- ブラウザで`http://localhost:3333`を開き、旧`ImageUploader`と同等のドラッグ&ドロップUIから画像をアップロードし、アップロード後にMarkdown記法をコピーできる
+- 認証情報（R2 API token）は`.env.local`から読み込み、Cloudflareにはデプロイしない
+- 詳細な手順は[docs/image-upload-setup.md](../image-upload-setup.md)を参照
 
 ## 検討した選択肢
 
@@ -84,22 +97,30 @@ Astroの`output: 'hybrid'`または`output: 'server'`モードに切り替え、
 ### 4. ローカル専用Node.jsサーバー
 
 #### 概要
-Astroとは完全に独立した、ローカル環境専用のNode.jsサーバーを用意する。このサーバーはCloudinaryへのアップロード機能を提供するが、Cloudflareにはデプロイしない。
+Astroとは完全に独立した、ローカル環境専用のNode.jsサーバーを用意する。このサーバーは画像アップロード機能を提供するが、Cloudflareにはデプロイしない。
+
+（提案時点ではアップロード先をCloudinary想定で記述していたが、[ADR 001](001-image-hosting-service-selection.md)でCloudflare R2への移行を決定したため、最終的にはR2へのアップロードを実装する）
 
 #### 長所
 - ✅ Astroの静的サイト構成に一切影響しない
-- ✅ Cloudinaryの画像最適化機能を利用できる
 - ✅ ローカルのみで動作するため、認証情報の管理が比較的容易
+- ✅ アップロード先のサービス（Cloudinary/R2等）を問わず同じ構成を再利用できる
 
 #### 短所
 - ❌ ローカル環境でのみ動作し、別ターミナルで起動する必要がある
 - ❌ Node.jsサーバーの実装・メンテナンスコストが発生する
 
 #### 評価
-⭐⭐⭐（Cloudinaryを活かしつつ静的構成を維持したい場合に検討）
+⭐⭐⭐⭐（静的構成を維持したい場合に推奨。案2のCLIスクリプトよりUIがある分、日常的な運用がしやすい）
 
 ---
 
 ## 影響
 
-（決定後に記載）
+### 短期的影響
+- `pnpm upload`でローカルサーバーを起動しないと画像アップロードができない（ブラウザから直接操作はできない）
+- `src/components/ImageUploader.tsx`（旧Next.js用、`/api/upload`が存在せず動作しない状態だった）とCloudinary関連の依存関係・ドキュメントを削除
+
+### 長期的影響
+- アップロード頻度が増え、ブラウザからの操作性が必要になった場合は案3（Astro hybridモード）を再検討する余地がある
+- ローカルサーバーの実装（`tools/upload-server/`）はAstro本体から独立しているため、Astroのバージョンアップ等の影響を受けにくい

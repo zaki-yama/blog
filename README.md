@@ -56,25 +56,21 @@ To change the measurement ID, edit `SITE_CONFIG.analytics.gaId` directly.
 
 For details on why this is a build-time constant rather than an environment variable, see [docs/google-analytics-setup.md](docs/google-analytics-setup.md).
 
-### Cloudinary Setup (for Image Upload)
+### Image Upload (local only)
 
-1. Create a Cloudinary account at [cloudinary.com](https://cloudinary.com)
-2. Get your credentials from the Cloudinary dashboard:
-   - Cloud Name
-   - API Key
-   - API Secret
-3. Set the environment variables:
-   ```bash
-   cp .env.local.example .env.local
-   # Edit .env.local and add your Cloudinary credentials
-   ```
+Article images are hosted on Cloudflare R2. Uploading is done with a local-only tool (`tools/upload-server`) that never gets deployed — see [docs/image-upload-setup.md](docs/image-upload-setup.md) for setting up an R2 API token.
+
+```bash
+cp .env.local.example .env.local
+# Edit .env.local and add your R2 credentials
+pnpm upload
+# Open http://localhost:3333
+```
 
 ### Environment Variables
 
 - `PUBLIC_SITE_URL`: Overrides the site URL used for canonical links (optional; falls back to `SITE_CONFIG.url.base` in `src/lib/site-config.ts`)
-- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`: Cloudinary cloud name (required for image upload)
-- `CLOUDINARY_API_KEY`: Cloudinary API key (required for image upload)
-- `CLOUDINARY_API_SECRET`: Cloudinary API secret (required for image upload)
+- `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_PUBLIC_URL`: Cloudflare R2 credentials, used only by the local `pnpm upload` tool (not read by the Astro build)
 
 Note: this project is a fully static Astro site (`output: 'static'`, no adapter). `astro build` runs entirely at build time, so only environment variables present in the shell (or an `.env` file) *at build time* take effect — values set in `wrangler.jsonc`'s `vars` are never read, since there is no server-side Worker script to read them.
 
@@ -110,6 +106,7 @@ pnpm run preview
 - `pnpm build` - Build for production
 - `pnpm run deploy` - Build and deploy to Cloudflare Workers
 - `pnpm preview` - Preview the built site locally
+- `pnpm upload` - Start the local-only image upload tool (see [docs/image-upload-setup.md](docs/image-upload-setup.md))
 
 ### Favicon Generation
 
