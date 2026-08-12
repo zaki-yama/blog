@@ -3,6 +3,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import remarkDirective from 'remark-directive';
+import remarkBreaks from 'remark-breaks';
 import { remarkImageSize } from './src/lib/remark-image-size';
 import { remarkZennMessage } from './src/lib/remark-zenn-message';
 import { rehypeTwitterEmbed } from './src/lib/rehype-twitter-embed';
@@ -103,7 +104,7 @@ export default defineConfig({
       type: 'shiki',
       excludeLangs: ['mermaid'],
     },
-    remarkPlugins: [remarkImageSize, remarkDirective, remarkZennMessage],
+    remarkPlugins: [remarkImageSize, remarkDirective, remarkZennMessage, remarkBreaks],
     rehypePlugins: [rehypeMermaid, rehypeHeadingIds, rehypeTwitterEmbed, rehypeLinkCard],
   },
 });
