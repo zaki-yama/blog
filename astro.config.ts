@@ -6,9 +6,11 @@ import remarkDirective from 'remark-directive';
 import remarkBreaks from 'remark-breaks';
 import { remarkImageSize } from './src/lib/remark-image-size';
 import { remarkZennMessage } from './src/lib/remark-zenn-message';
+import { remarkCodeFilename } from './src/lib/remark-code-filename';
 import { rehypeTwitterEmbed } from './src/lib/rehype-twitter-embed';
 import { rehypeLinkCard } from './src/lib/rehype-link-card';
 import { rehypeMermaid } from './src/lib/rehype-mermaid';
+import { transformerFilename } from './src/lib/shiki-transformer-filename';
 
 function rehypeHeadingIds() {
   return (tree: any) => {
@@ -99,12 +101,19 @@ export default defineConfig({
     shikiConfig: {
       theme: 'dark-plus',
       wrap: true,
+      transformers: [transformerFilename()],
     },
     syntaxHighlight: {
       type: 'shiki',
       excludeLangs: ['mermaid'],
     },
-    remarkPlugins: [remarkImageSize, remarkDirective, remarkZennMessage, remarkBreaks],
+    remarkPlugins: [
+      remarkImageSize,
+      remarkDirective,
+      remarkZennMessage,
+      remarkBreaks,
+      remarkCodeFilename,
+    ],
     rehypePlugins: [rehypeMermaid, rehypeHeadingIds, rehypeTwitterEmbed, rehypeLinkCard],
   },
 });

@@ -163,6 +163,29 @@ body {
   overflow-x: auto;
 }
 
+/* Filename title bar for ```lang:filename``` code blocks */
+.prose .code-block-wrapper {
+  margin: 1.5rem 0;
+}
+
+.prose .code-block-wrapper pre.astro-code {
+  margin: 0;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+/* Fixed dark colors (not theme-dependent): the code block itself always
+   renders with the dark-plus Shiki theme regardless of light/dark mode. */
+.prose .code-filename {
+  padding: 0.5rem 1.25rem;
+  border-bottom: 1px solid #3c3c3c;
+  border-radius: 0.5rem 0.5rem 0 0;
+  background-color: #252526;
+  color: #9ca3af;
+  font-size: 0.875rem;
+  font-family: ui-monospace, monospace;
+  user-select: text;
+}
+
 /* Inline code styling */
 .prose code:not(pre code) {
   background-color: #f3f4f6;
