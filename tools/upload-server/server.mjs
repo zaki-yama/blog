@@ -58,6 +58,12 @@ const upload = multer({
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/api/config', (_req, res) => {
+  res.json({
+    r2DashboardUrl: `https://dash.cloudflare.com/${R2_ACCOUNT_ID}/r2/default/buckets/${R2_BUCKET_NAME}`,
+  });
+});
+
 app.post('/api/upload', (req, res) => {
   upload.single('file')(req, res, async (uploadError) => {
     if (uploadError) {

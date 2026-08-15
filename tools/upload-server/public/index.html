@@ -18,7 +18,13 @@
       }
       h1 {
         font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+      #r2-link {
+        display: inline-block;
         margin-bottom: 1.5rem;
+        font-size: 0.85rem;
+        color: #2563eb;
       }
       #dropzone {
         border: 2px dashed #cbd5e1;
@@ -138,6 +144,9 @@
   </head>
   <body>
     <h1>Blog Image Uploader (Cloudflare R2 / local only)</h1>
+    <a id="r2-link" href="#" target="_blank" rel="noopener" style="display: none"
+      >R2バケットをCloudflareダッシュボードで開く →</a
+    >
 
     <div id="dropzone">
       <div id="idle-state">
@@ -180,6 +189,17 @@
       const copyBtn = document.getElementById('copy-btn');
       const resetBtn = document.getElementById('reset-btn');
       const errorBox = document.getElementById('error');
+      const r2Link = document.getElementById('r2-link');
+
+      fetch('/api/config')
+        .then((res) => res.json())
+        .then((config) => {
+          if (config.r2DashboardUrl) {
+            r2Link.href = config.r2DashboardUrl;
+            r2Link.style.display = 'inline-block';
+          }
+        })
+        .catch(() => {});
 
       function setUploading(uploading) {
         dropzone.classList.toggle('uploading', uploading);
@@ -195,7 +215,7 @@
       function showResult(data) {
         result.style.display = 'block';
         resultMeta.textContent = `Image uploaded: ${data.width}x${data.height} (${(data.bytes / 1024).toFixed(1)}KB)`;
-        markdownOutput.value = `![Image description](${data.url})`;
+        markdownOutput.value = `![](${data.url})`;
         copyBtn.textContent = 'Copy';
       }
 
