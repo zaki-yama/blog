@@ -86,6 +86,10 @@ const hasMermaid = containsMermaidBlock(post.body ?? '');
         <div class="prose prose-lg max-w-none">
           <Content />
         </div>
+        <script>
+          import { initCopyCodeButtons } from '../../lib/copy-code-client';
+          initCopyCodeButtons();
+        </script>
         {hasMermaid && <script>import { initMermaid } from '../../lib/mermaid-client'; initMermaid();</script>}
         {hasTwitterEmbed && <script async src="https://platform.twitter.com/widgets.js" charset="utf-8" />}
 
