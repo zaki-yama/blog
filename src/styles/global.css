@@ -6,6 +6,10 @@
   --foreground: #171717;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
