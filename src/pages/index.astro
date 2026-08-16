@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE_CONFIG, getBaseUrl } from '../lib/site-config';
 import { generateWebSiteJsonLd, generateOrganizationJsonLd } from '../lib/structured-data';
+import { tagHref } from '../lib/tags';
 
 const posts = await getCollection('posts');
 const sortedPosts = posts.toSorted(
@@ -43,22 +44,29 @@ const organizationJsonLd = generateOrganizationJsonLd(baseUrl);
     <section>
       <div class="space-y-0">
         {
-          sortedPosts.map(({ id, data: { date, title, category } }, index) => (
-            <a href={`/posts/${id}`} class="group block">
-              <article
-                class={`grid grid-cols-[100px_1fr] gap-6 py-4 ${index !== 0 ? 'border-t border-gray-100 dark:border-gray-800' : ''}`}
-              >
-                <div class="text-sm text-gray-400 dark:text-gray-500 pt-0.5 font-mono">{date}</div>
-                <div>
+          sortedPosts.map(({ id, data: { date, title, tags } }, index) => (
+            <article
+              class={`grid grid-cols-[100px_1fr] gap-6 py-4 ${index !== 0 ? 'border-t border-gray-100 dark:border-gray-800' : ''}`}
+            >
+              <div class="text-sm text-gray-400 dark:text-gray-500 pt-0.5 font-mono">{date}</div>
+              <div>
+                <a href={`/posts/${id}`} class="group block">
                   <h2 class="text-base font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-relaxed">
                     {title}
                   </h2>
-                  <span class="text-xs text-gray-400 dark:text-gray-500 mt-1 inline-block">
-                    {category}
-                  </span>
+                </a>
+                <div class="flex flex-wrap gap-2 mt-1">
+                  {tags.map((tag) => (
+                    <a
+                      href={tagHref(tag)}
+                      class="text-xs text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      {tag}
+                    </a>
+                  ))}
                 </div>
-              </article>
-            </a>
+              </div>
+            </article>
           ))
         }
       </div>

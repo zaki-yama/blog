@@ -6,7 +6,7 @@ interface ArticleStructuredData {
   author: string;
   datePublished: string;
   dateModified?: string;
-  category: string;
+  tags: string[];
   url: string;
   imageUrl?: string;
 }
@@ -49,7 +49,7 @@ export function generateArticleJsonLd(data: ArticleStructuredData) {
         url: data.imageUrl,
       },
     }),
-    articleSection: data.category,
+    keywords: data.tags.join(', '),
     inLanguage: 'ja-JP',
   };
 

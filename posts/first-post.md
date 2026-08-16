@@ -1,7 +1,7 @@
 ---
 title: 'Claude Codeにブログを作ってもらった'
 date: '2026-05-11'
-category: '雑記'
+tags: ['雑記']
 description: '個人ブログをはてなブログから引っ越しするためにClaude Codeに作ってもらった'
 ---
 

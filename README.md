@@ -37,7 +37,7 @@ A modern technical blog built with Astro and deployed on Cloudflare Workers, des
    ---
    title: 'Your Article Title'
    date: '2024-06-28'
-   category: 'Category Name'
+   tags: ['Tag Name']
    description: 'Article description'
    ---
    

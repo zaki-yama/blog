@@ -40,6 +40,13 @@ export default function Header() {
 
           <nav className="flex items-center space-x-4">
             <a
+              href="/tags"
+              className="text-sm text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              タグ
+            </a>
+
+            <a
               href="/rss.xml"
               className="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               aria-label="RSS Feed"
