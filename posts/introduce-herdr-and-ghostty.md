@@ -1,7 +1,7 @@
 ---
 title: 'iTerm2 + tmuxからHerdr + Ghosttyに移行した'
 date: '2026-08-16'
-category: '開発環境'
+tags: ['開発環境']
 description: '開発環境をHerdr + Ghosttyに移行したので、セットアップのメモ'
 ---
 

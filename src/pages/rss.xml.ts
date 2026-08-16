@@ -16,7 +16,8 @@ export async function GET() {
       title: post.data.title,
       pubDate: new Date(post.data.date),
       description: post.data.description,
-      link: `/posts/${post.slug}`,
+      link: `/posts/${post.id}`,
+      categories: post.data.tags,
     })),
   });
 }

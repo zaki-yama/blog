@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE_CONFIG } from '../../lib/site-config';
+import { getAllTags, getPostsByTag, tagHref } from '../../lib/tags';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const tags = getAllTags(posts);
+  return tags.map(({ tag }) => ({
+    params: { tag },
+    props: { posts: getPostsByTag(posts, tag) },
+  }));
+}
+
+interface Props {
+  posts: Awaited<ReturnType<typeof getCollection<'posts'>>>;
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props as Props;
+---
+
+<BaseLayout
+  title={`${tag} の記事一覧 | ${SITE_CONFIG.name}`}
+  description={`「${tag}」タグが付いた記事の一覧`}
+>
+  <div class="mx-auto px-8 py-12 max-w-[896px]">
+    <a
+      href="/tags"
+      class="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 mb-6 inline-block text-sm transition-colors"
+    >
+      ← タグ一覧
+    </a>
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+      {tag}
+    </h1>
+    <a
+      href={`${tagHref(tag ?? '')}/rss.xml`}
+      class="text-xs text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+    >
+      RSSフィード
+    </a>
+
+    <section class="mt-8">
+      <div class="space-y-0">
+        {
+          posts.map(({ id, data: { date, title, tags } }, index) => (
+            <article
+              class={`grid grid-cols-[100px_1fr] gap-6 py-4 ${index !== 0 ? 'border-t border-gray-100 dark:border-gray-800' : ''}`}
+            >
+              <div class="text-sm text-gray-400 dark:text-gray-500 pt-0.5 font-mono">{date}</div>
+              <div>
+                <a href={`/posts/${id}`} class="group block">
+                  <h2 class="text-base font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-relaxed">
+                    {title}
+                  </h2>
+                </a>
+                <div class="flex flex-wrap gap-2 mt-1">
+                  {tags.map((t) => (
+                    <a
+                      href={tagHref(t)}
+                      class="text-xs text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      {t}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>

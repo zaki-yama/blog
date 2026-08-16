@@ -148,7 +148,7 @@ function footer(text: string, logoDataUrl: string): SatoriNode {
   };
 }
 
-function categoryBadge(category: string): SatoriNode {
+function tagsBadge(tags: string[]): SatoriNode {
   return {
     type: 'div',
     props: {
@@ -172,7 +172,7 @@ function categoryBadge(category: string): SatoriNode {
                 color: '#93c5fd',
                 fontWeight: '500',
               },
-              children: category,
+              children: tags.join(' / '),
             },
           },
         },
@@ -247,22 +247,22 @@ function titleBlock(title: string, subtitle: string | undefined): SatoriNode {
 interface RenderOgImageOptions {
   title: string;
   subtitle?: string;
-  category?: string;
+  tags?: string[];
   footerText: string;
 }
 
 export async function renderOgImage({
   title,
   subtitle,
-  category,
+  tags,
   footerText,
 }: RenderOgImageOptions): Promise<Response> {
   const logoDataUrl = getLogoDataUrl();
   const fontData = await loadFont();
 
   const bodyChildren: SatoriNode[] = [];
-  if (category) {
-    bodyChildren.push(categoryBadge(category));
+  if (tags && tags.length > 0) {
+    bodyChildren.push(tagsBadge(tags));
   }
   bodyChildren.push({
     type: 'div',

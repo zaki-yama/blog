@@ -8,20 +8,20 @@ export async function getStaticPaths() {
     params: { id: post.id },
     props: {
       title: post.data.title,
-      category: post.data.category,
+      tags: post.data.tags,
     },
   }));
 }
 
 interface Props {
   title: string;
-  category: string;
+  tags: string[];
 }
 
 export async function GET({ props }: { props: Props }) {
   return renderOgImage({
     title: props.title,
-    category: props.category,
+    tags: props.tags,
     footerText: SITE_CONFIG.name,
   });
 }
