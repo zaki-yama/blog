@@ -11,6 +11,7 @@ import { rehypeTwitterEmbed } from './src/lib/rehype-twitter-embed';
 import { rehypeLinkCard } from './src/lib/rehype-link-card';
 import { rehypeMermaid } from './src/lib/rehype-mermaid';
 import { transformerFilename } from './src/lib/shiki-transformer-filename';
+import { transformerCopyButton } from './src/lib/shiki-transformer-copy-button';
 
 function rehypeHeadingIds() {
   return (tree: any) => {
@@ -101,7 +102,9 @@ export default defineConfig({
     shikiConfig: {
       theme: 'dark-plus',
       wrap: false,
-      transformers: [transformerFilename()],
+      // copy-button must run before filename: filename replaces <pre> with a
+      // wrapping <div>, so the button needs to be appended while it's still <pre>.
+      transformers: [transformerCopyButton(), transformerFilename()],
     },
     syntaxHighlight: {
       type: 'shiki',

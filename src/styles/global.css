@@ -158,10 +158,60 @@ body {
 
 /* Shiki code block styling */
 .prose pre.astro-code {
+  position: relative;
   border-radius: 0.5rem;
   margin: 1.5rem 0;
   padding: 1.25rem;
   overflow-x: auto;
+}
+
+/* Copy-to-clipboard button, injected into every code block by
+   shiki-transformer-copy-button.ts. Colors are fixed (not theme-dependent)
+   like .code-filename below, since the code block itself is always dark. */
+.prose .copy-code-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border-radius: 0.375rem;
+  border: 1px solid transparent;
+  background-color: rgb(255 255 255 / 0.08);
+  color: #9ca3af;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+
+.prose .copy-code-button:hover {
+  background-color: rgb(255 255 255 / 0.16);
+  color: #f9fafb;
+}
+
+.prose .copy-code-button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.prose .copy-code-button .icon-check {
+  display: none;
+}
+
+.prose .copy-code-button.copied {
+  color: #4ade80;
+}
+
+.prose .copy-code-button.copied .icon-copy {
+  display: none;
+}
+
+.prose .copy-code-button.copied .icon-check {
+  display: block;
 }
 
 /* Filename title bar for ```lang:filename``` code blocks */
