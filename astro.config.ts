@@ -100,7 +100,7 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       theme: 'dark-plus',
-      wrap: true,
+      wrap: false,
       transformers: [transformerFilename()],
     },
     syntaxHighlight: {
