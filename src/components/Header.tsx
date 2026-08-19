@@ -1,30 +1,46 @@
 import { useState, useEffect } from 'react';
 import { SITE_CONFIG } from '../lib/site-config';
 
+type Theme = 'light' | 'dark' | 'system';
+
+function resolveIsDark(theme: Theme, prefersDark: boolean): boolean {
+  return theme === 'system' ? prefersDark : theme === 'dark';
+}
+
 export default function Header() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [theme, setTheme] = useState<Theme>('system');
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = (localStorage.getItem('theme') as Theme | null) ?? 'system';
+    setTheme(savedTheme);
 
-    const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    setDarkMode(isDark);
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const applyTheme = (currentTheme: Theme) => {
+      document.documentElement.classList.toggle(
+        'dark',
+        resolveIsDark(currentTheme, mediaQuery.matches)
+      );
+    };
 
-    document.documentElement.classList.toggle('dark', isDark);
+    applyTheme(savedTheme);
+
+    const handleSystemChange = () => {
+      const currentTheme = (localStorage.getItem('theme') as Theme | null) ?? 'system';
+      if (currentTheme === 'system') {
+        applyTheme('system');
+      }
+    };
+    mediaQuery.addEventListener('change', handleSystemChange);
+    return () => mediaQuery.removeEventListener('change', handleSystemChange);
   }, []);
 
-  const toggleDarkMode = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
+  const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newTheme = e.target.value as Theme;
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
 
-    if (newDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    document.documentElement.classList.toggle('dark', resolveIsDark(newTheme, prefersDark));
   };
 
   return (
@@ -66,21 +82,16 @@ export default function Header() {
               </svg>
             </a>
 
-            <button
-              onClick={toggleDarkMode}
-              className="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
-              aria-label="Toggle Dark Mode"
+            <select
+              value={theme}
+              onChange={handleThemeChange}
+              aria-label="テーマ切り替え"
+              className="text-sm text-gray-500 dark:text-gray-400 bg-transparent border border-gray-200 dark:border-gray-700 rounded-md px-2 py-1 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-400 transition-colors"
             >
-              {darkMode ? (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 18a6 6 0 100-12 6 6 0 000 12zM12 2a1 1 0 011 1v2a1 1 0 11-2 0V3a1 1 0 011-1zM12 19a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zM5.05 6.464L3.636 5.05a1 1 0 00-1.414 1.414L3.636 7.88a1 1 0 001.414-1.415zM18.95 17.536l1.414 1.414a1 1 0 001.414-1.414l-1.414-1.414a1 1 0 00-1.414 1.414zM22 12a1 1 0 01-1 1h-2a1 1 0 110-2h2a1 1 0 011 1zM5 12a1 1 0 01-1 1H2a1 1 0 110-2h2a1 1 0 011 1zM18.95 6.464a1 1 0 001.414-1.414L18.95 3.636a1 1 0 00-1.414 1.414l1.414 1.414zM5.05 17.536a1 1 0 00-1.414 1.414l1.414 1.414a1 1 0 001.414-1.414L5.05 17.536z" />
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-              )}
-            </button>
+              <option value="light">ライト</option>
+              <option value="dark">ダーク</option>
+              <option value="system">システム</option>
+            </select>
           </nav>
         </div>
       </div>
