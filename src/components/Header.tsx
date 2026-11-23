@@ -1,7 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { SITE_CONFIG } from '../lib/site-config';
 
 type Theme = 'light' | 'dark' | 'system';
+
+const SunIcon = () => (
+  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 18a6 6 0 100-12 6 6 0 000 12zM12 2a1 1 0 011 1v2a1 1 0 11-2 0V3a1 1 0 011-1zM12 19a1 1 0 011 1v2a1 1 0 11-2 0v-2a1 1 0 011-1zM5.05 6.464L3.636 5.05a1 1 0 00-1.414 1.414L3.636 7.88a1 1 0 001.414-1.415zM18.95 17.536l1.414 1.414a1 1 0 001.414-1.414l-1.414-1.414a1 1 0 00-1.414 1.414zM22 12a1 1 0 01-1 1h-2a1 1 0 110-2h2a1 1 0 011 1zM5 12a1 1 0 01-1 1H2a1 1 0 110-2h2a1 1 0 011 1zM18.95 6.464a1 1 0 001.414-1.414L18.95 3.636a1 1 0 00-1.414 1.414l1.414 1.414zM5.05 17.536a1 1 0 00-1.414 1.414l1.414 1.414a1 1 0 001.414-1.414L5.05 17.536z" />
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+);
+
+const SystemIcon = () => (
+  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="3" y="4" width="18" height="12" rx="2" />
+    <path strokeLinecap="round" d="M8 20h8M12 16v4" />
+  </svg>
+);
+
+const THEME_OPTIONS: { value: Theme; label: string; Icon: () => React.ReactElement }[] = [
+  { value: 'light', label: 'ライト', Icon: SunIcon },
+  { value: 'dark', label: 'ダーク', Icon: MoonIcon },
+  { value: 'system', label: 'システム', Icon: SystemIcon },
+];
 
 function resolveIsDark(theme: Theme, prefersDark: boolean): boolean {
   return theme === 'system' ? prefersDark : theme === 'dark';
@@ -9,6 +34,26 @@ function resolveIsDark(theme: Theme, prefersDark: boolean): boolean {
 
 export default function Header() {
   const [theme, setTheme] = useState<Theme>('system');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     const savedTheme = (localStorage.getItem('theme') as Theme | null) ?? 'system';
@@ -34,14 +79,16 @@ export default function Header() {
     return () => mediaQuery.removeEventListener('change', handleSystemChange);
   }, []);
 
-  const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newTheme = e.target.value as Theme;
+  const handleThemeChange = (newTheme: Theme) => {
     setTheme(newTheme);
+    setMenuOpen(false);
     localStorage.setItem('theme', newTheme);
 
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     document.documentElement.classList.toggle('dark', resolveIsDark(newTheme, prefersDark));
   };
+
+  const currentOption = THEME_OPTIONS.find((option) => option.value === theme) ?? THEME_OPTIONS[2];
 
   return (
     <header className="border-b border-gray-100 dark:border-gray-800">
@@ -82,16 +129,45 @@ export default function Header() {
               </svg>
             </a>
 
-            <select
-              value={theme}
-              onChange={handleThemeChange}
-              aria-label="テーマ切り替え"
-              className="text-sm text-gray-500 dark:text-gray-400 bg-transparent border border-gray-200 dark:border-gray-700 rounded-md px-2 py-1 cursor-pointer hover:border-blue-400 dark:hover:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-400 transition-colors"
-            >
-              <option value="light">ライト</option>
-              <option value="dark">ダーク</option>
-              <option value="system">システム</option>
-            </select>
+            <div ref={menuRef} className="relative flex items-center">
+              <button
+                type="button"
+                onClick={() => setMenuOpen((open) => !open)}
+                aria-label={`テーマ切り替え（現在: ${currentOption.label}）`}
+                title={`テーマ: ${currentOption.label}`}
+                aria-haspopup="menu"
+                aria-expanded={menuOpen}
+                className="text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
+              >
+                <currentOption.Icon />
+              </button>
+
+              {menuOpen && (
+                <div
+                  role="menu"
+                  className="absolute right-0 top-full mt-2 z-10 flex flex-col gap-1 p-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg"
+                >
+                  {THEME_OPTIONS.map(({ value, label, Icon }) => (
+                    <button
+                      key={value}
+                      type="button"
+                      role="menuitemradio"
+                      aria-checked={theme === value}
+                      aria-label={label}
+                      title={label}
+                      onClick={() => handleThemeChange(value)}
+                      className={`p-1.5 rounded transition-colors cursor-pointer ${
+                        theme === value
+                          ? 'text-blue-600 dark:text-blue-400 bg-gray-100 dark:bg-gray-800'
+                          : 'text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                      }`}
+                    >
+                      <Icon />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </nav>
         </div>
       </div>
