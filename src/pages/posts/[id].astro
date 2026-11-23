@@ -81,9 +81,9 @@ const hasMermaid = containsMermaidBlock(post.body ?? '');
               {post.data.tags.map((tag) => (
                 <a
                   href={tagHref(tag)}
-                  class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  class="underline decoration-dashed decoration-gray-300 dark:decoration-gray-600 underline-offset-2 hover:text-blue-600 dark:hover:text-blue-400 hover:decoration-solid hover:decoration-blue-600 dark:hover:decoration-blue-400 transition-colors"
                 >
-                  {tag}
+                  #{tag}
                 </a>
               ))}
             </div>

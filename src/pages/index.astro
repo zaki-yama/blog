@@ -59,9 +59,9 @@ const organizationJsonLd = generateOrganizationJsonLd(baseUrl);
                   {tags.map((tag) => (
                     <a
                       href={tagHref(tag)}
-                      class="text-xs text-gray-400 dark:text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      class="text-xs text-gray-400 dark:text-gray-500 underline decoration-dashed decoration-gray-300 dark:decoration-gray-600 underline-offset-2 hover:text-blue-600 dark:hover:text-blue-400 hover:decoration-solid hover:decoration-blue-600 dark:hover:decoration-blue-400 transition-colors"
                     >
-                      {tag}
+                      #{tag}
                     </a>
                   ))}
                 </div>
